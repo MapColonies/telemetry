@@ -11,7 +11,7 @@ export class Tracing {
     private readonly exporterConfig?: CollectorExporterConfigBase
   ) {}
 
-  public start():Tracer {
+  public start(): Tracer {
     this.provider = new NodeTracerProvider(this.providerConfig);
     const exporter = new CollectorTraceExporter(this.exporterConfig);
     this.provider.addSpanProcessor(new SimpleSpanProcessor(exporter));
@@ -21,6 +21,6 @@ export class Tracing {
   }
 
   public async shutdown(): Promise<void> {
-    await this.provider?.shutdown()
+    await this.provider?.shutdown();
   }
 }
