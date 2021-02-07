@@ -1,8 +1,8 @@
 # Telemetry
 ## Motive
-This package goal is to make the experience of configuring and working with opentelemetry easier.
+This package goal is to make the experience of configuring and working with OpenTelemetry easier.
 ## Tracing
-the following code shows a simple example of how to work with the package. please notice that you need to manually install any auto-instrumentation library that you require.
+The following code shows a simple example of how to work with the package. please notice that you need to manually install any auto-instrumentation library that you require.
 
 ```typescript
 import { Tracing } from './tracing';
@@ -25,7 +25,7 @@ tracing.stop().then(() => console.log('done'));
 | name |allowed value| default value | description
 |---|---|---|---|
 |TELEMETRY_TRACING_ENABLED|'true', 'false'|'false'|Should Tracing be enabled| 
-|TELEMEYTRY_SERVICE_NAME|string|from package.json| The service name
+|TELEMETRY_SERVICE_NAME|string|from package.json| The service name
 |TELEMETRY_SERVICE_VERSION|string| from package.json| The service version
 |TELEMETRY_TRACING_URL<span style="color:red">*</span>|string||The URL to the OpenTelemetry Collector
 |TELEMETRY_HOST_NAME|string||The host name
