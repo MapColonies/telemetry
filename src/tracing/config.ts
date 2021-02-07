@@ -26,7 +26,7 @@ export const getTracingConfig = (): TracingConfig => {
     isEnabled: true,
     serviceName: env.get('TELEMEYTRY_SERVICE_NAME').asString() ?? packageConfig.name,
     hostname: env.get('TELEMETRY_HOST_NAME').asString(),
-    version: env.get('TELEMETRY_VERSION').asString() ?? packageConfig.version,
+    version: env.get('TELEMETRY_SERVICE_VERSION').asString() ?? packageConfig.version,
     url: env.get('TELEMETRY_TRACING_URL').required().asUrlString(),
     loglevel: logLevel !== undefined ? LogLevel[logLevel] : undefined,
   };
