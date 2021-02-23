@@ -42,7 +42,7 @@
     "@opentelemetry/exporter-collector": "0.15.0",
     "@opentelemetry/instrumentation-http": "^0.15.0",
     "@opentelemetry/node": "^0.15.0",
-    "@opentelemetry/tracing": "^0.15.0",
+    "@opentelemetry/tracing": "^0.16.0",
     "env-var": "^7.0.0"
   },
   "devDependencies": {
