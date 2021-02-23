@@ -39,7 +39,7 @@
   "dependencies": {
     "@opentelemetry/api": "^0.15.0",
     "@opentelemetry/core": "^0.15.0",
-    "@opentelemetry/exporter-collector": "0.15.0",
+    "@opentelemetry/exporter-collector": "0.16.0",
     "@opentelemetry/instrumentation-http": "^0.15.0",
     "@opentelemetry/node": "^0.15.0",
     "@opentelemetry/tracing": "^0.15.0",
