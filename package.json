@@ -42,6 +42,7 @@
     "@opentelemetry/core": "^0.18.0",
     "@opentelemetry/exporter-collector": "0.18.0",
     "@opentelemetry/instrumentation": "^0.18.0",
+    "@opentelemetry/metrics": "^0.18.0",
     "@opentelemetry/node": "^0.18.0",
     "@opentelemetry/tracing": "^0.18.0",
     "env-var": "^7.0.0"
