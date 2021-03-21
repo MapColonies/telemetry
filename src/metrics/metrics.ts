@@ -1,27 +1,28 @@
-import { NodeTracerProvider } from '@opentelemetry/node';
-import { CollectorTraceExporter, CollectorMetricExporter } from '@opentelemetry/exporter-collector';
-import { SimpleSpanProcessor } from '@opentelemetry/tracing';
-import { InstrumentationOption, registerInstrumentations,  } from '@opentelemetry/instrumentation';
-import {Meter, MeterProvider, ConsoleMetricExporter} from '@opentelemetry/metrics'
-import { NoopTracerProvider, Tracer, } from '@opentelemetry/api';
+import { CollectorMetricExporter } from '@opentelemetry/exporter-collector';
+import { MeterProvider, MetricExporter, Meter as OtelMeter } from '@opentelemetry/metrics';
 import { TelemetryBase } from '../common/interfaces';
+import { Meter, MeterWrapper } from './meterWrapper';
+import { getMetricsConfig, MetricsConfig } from './config';
 
 export class Metrics implements TelemetryBase<Meter> {
   private provider?: MeterProvider;
-  public constructor(private readonly meterName:string) {
+  private meter?: OtelMeter;
+  private readonly config: MetricsConfig;
+  public constructor(private readonly meterName: string) {
+    this.config = getMetricsConfig();
   }
 
   public start(): Meter {
+    const { isEnabled, version, sendInterval, ...exporterConfig } = this.config;
 
-    // if (!isEnabled) {
-    //   const provider = new NoopTracerProvider();
-    //   return provider.getTracer(this.tracerName);
-    // }
+    let exporter: MetricExporter | undefined;
 
-    const exporter = new CollectorMetricExporter({serviceName:'aaaaa-bbbb'});
-
-    this.provider = new MeterProvider({exporter, interval: 6000})
-    return this.provider.getMeter(this.meterName);
+    if (isEnabled) {
+      exporter = new CollectorMetricExporter(exporterConfig);
+    }
+    this.provider = new MeterProvider({ exporter, interval: sendInterval });
+    this.meter = this.provider.getMeter(this.meterName);
+    return new MeterWrapper(this.meter, exporterConfig.serviceName as string);
   }
 
   public async stop(): Promise<void> {
