@@ -44,7 +44,7 @@ metrics.stop().then(() => console.log('done'));
 |---|---|---|---|
 |TELEMETRY_SERVICE_NAME|string|from package.json| The service name
 |TELEMETRY_SERVICE_VERSION|string| from package.json| The service version
-|TELEMETRY_HOST_NAME|string||The host name
+|TELEMETRY_HOST_NAME|string|`os.hostname()`|The host name
 <br/>
 
 #### Tracing configuration
