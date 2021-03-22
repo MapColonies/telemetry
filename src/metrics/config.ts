@@ -23,6 +23,6 @@ export const getMetricsConfig = (): MetricsConfig => {
     isEnabled: true,
     url: env.get('TELEMETRY_METRICS_URL').asUrlString() ?? DEFAULT_URL,
     sendInterval: env.get('TELEMETRY_METRICS_INTERVAL').asIntPositive() ?? DEFAULT_SEND_INTERVAL,
-    ...commonConfig
+    ...commonConfig,
   };
 };

@@ -17,11 +17,11 @@ export const getTracingConfig = (): TracingConfig => {
     return { isEnabled: false };
   }
 
-  const commonConfig = getCommonConfig()
+  const commonConfig = getCommonConfig();
 
   return {
     isEnabled: true,
     url: env.get('TELEMETRY_TRACING_URL').asUrlString() ?? DEFAULT_URL,
-    ...commonConfig
+    ...commonConfig,
   };
 };

@@ -27,5 +27,6 @@ export class Metrics implements TelemetryBase<Meter> {
 
   public async stop(): Promise<void> {
     await this.provider?.shutdown();
+    await this.meter?.shutdown();
   }
 }

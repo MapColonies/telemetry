@@ -20,7 +20,7 @@ const getCommonConfig = (): CommonConfig => {
     serviceName: env.get('TELEMEYTRY_SERVICE_NAME').asString() ?? packageConfig.name,
     hostname: env.get('TELEMETRY_HOST_NAME').asString() ?? hostname(),
     version: env.get('TELEMETRY_SERVICE_VERSION').asString() ?? packageConfig.version,
-  }
+  };
   return commonConfig;
 };
 
