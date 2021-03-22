@@ -46,10 +46,11 @@ metrics.stop().then(() => console.log('done'));
 |TELEMETRY_SERVICE_VERSION|string| from package.json| The service version
 |TELEMETRY_HOST_NAME|string||The host name
 <br/>
+
 #### Tracing configuration
-| name |allowed value| default value | description
+| name |allowed value| default value | description 
 |---|---|---|---|
-|TELEMETRY_TRACING_ENABLED|'true', 'false'|'false'|Should Tracing be enabled|  
+|TELEMETRY_TRACING_ENABLED|'true', 'false'|'false'|Should Tracing be enabled
 |TELEMETRY_TRACING_URL<span style="color:red">*</span>|string|http://localhost:55681/v1/trace|The URL to the OpenTelemetry Collector
 
 <span style="color:red">*</span> required (only when tracing is enabled).
@@ -58,7 +59,7 @@ metrics.stop().then(() => console.log('done'));
 | name |allowed value| default value | description
 |---|---|---|---|
 |TELEMETRY_METRICS_ENABLED|'true', 'false'|'false'|Should Metrics be enabled| 
-|TELEMETRY_METRICS_URL<span style="color:red">*</span>|string|http://localhost:55681/v1/trace|The URL to the OpenTelemetry Collector
+|TELEMETRY_METRICS_URL<span style="color:red">*</span>|string|http://localhost:55681/v1/metrics|The URL to the OpenTelemetry Collector
 |TELEMETRY_METRICS_INTERVAL|number|15000|The interval in miliseconds between sending data to the collector
 
 <span style="color:red">*</span> required (only when tracing is enabled). 
