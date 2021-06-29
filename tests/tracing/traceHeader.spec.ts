@@ -1,10 +1,8 @@
-import { context, getSpanContext } from '@opentelemetry/api';
 import * as express from 'express';
 import { Application, Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as supertest from 'supertest';
-import { Tracing } from '../../src';
-import { getTraceContexHeaderMiddleware } from '../../src/common/middleware/traceOnHeaderMiddleware';
+import { getTraceContexHeaderMiddleware, Tracing } from '../../src';
 
 // eslint-disable-next-line jest/no-focused-tests
 describe.only('#traceOnHeaderMiddleware', function () {
@@ -27,13 +25,14 @@ describe.only('#traceOnHeaderMiddleware', function () {
       const tracer = tracing.start();
 
       resFn.mockImplementationOnce((req: Request, res: Response) => {
-        res.sendStatus(StatusCodes.OK);
+        res.status(StatusCodes.OK).json({ message: 'meow' });
       });
 
       const superTestAgent = supertest.agent(expressApp);
       const response = await superTestAgent.get('/avi');
+
       expect(response).toHaveProperty('body.message', 'meow');
-      expect(response.status).toEqual(StatusCodes.UNPROCESSABLE_ENTITY);
+      expect(response.status).toEqual(StatusCodes.OK);
     });
   });
 });
