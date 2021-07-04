@@ -9,7 +9,7 @@ The following code shows a simple example of how to work with tracing. please no
 ```typescript
 import { Tracing } from '@map-colonies/telemetry';
 
-const tracing = new Tracing('my-tracer-name');
+const tracing = new Tracing();
 
 const tracer = tracing.start();
 

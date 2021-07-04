@@ -9,20 +9,24 @@ import { getTracingConfig, TracingConfig } from './config';
 export class Tracing implements TelemetryBase<void> {
   private provider?: NodeTracerProvider;
   private readonly config: TracingConfig;
-  public constructor(private readonly insturmentations?: InstrumentationOption[], private readonly serviceName?: string) {
+  public constructor(private readonly insturmentations?: InstrumentationOption[], private readonly resource?: Resource) {
     this.config = getTracingConfig();
   }
 
   public start(): void {
-    if (!this.config.isEnabled) {
+    const { version, isEnabled, serviceName, ...exporterConfig } = this.config;
+
+    if (!isEnabled) {
       return;
     }
 
-    const { version, isEnabled, serviceName, ...exporterConfig } = this.config;
+    let actualResource = new Resource({ 'service.version': version, 'service.name': serviceName });
 
-    const resource = new Resource({ 'service.version': version, 'service.name': this.serviceName ?? serviceName });
+    if (this.resource) {
+      actualResource = actualResource.merge(this.resource);
+    }
 
-    this.provider = new NodeTracerProvider({ resource });
+    this.provider = new NodeTracerProvider({ resource: actualResource });
 
     registerInstrumentations({ tracerProvider: this.provider, instrumentations: this.insturmentations });
 
