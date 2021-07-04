@@ -1,13 +1,17 @@
 import * as env from 'env-var';
-import { getCommonConfig } from '../common/config';
+import { CommonConfig, getCommonConfig } from '../common/config';
 
 const DEFAULT_URL = 'http://localhost:55681/v1/trace';
-export interface TracingConfig {
-  isEnabled: boolean;
-  hostname?: string;
+
+interface TracingEnabeldConfig extends CommonConfig {
+  isEnabled: true;
   url?: string;
-  version?: string;
 }
+interface TracingDisabledConfig {
+  isEnabled: false;
+}
+
+export type TracingConfig = TracingEnabeldConfig | TracingDisabledConfig;
 
 export const getTracingConfig = (): TracingConfig => {
   const isEnabled = env.get('TELEMETRY_TRACING_ENABLED').default('false').asBool();
