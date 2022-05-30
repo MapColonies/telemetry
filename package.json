@@ -49,7 +49,7 @@
     "@opentelemetry/sdk-metrics-base": "0.29.0",
     "@opentelemetry/exporter-metrics-otlp-proto": "0.29.0", 
     "@opentelemetry/api-metrics": "0.29.0",
-    "env-var": "^7.0.0",
+    "env-var": "^7.1.1",
     "prom-client": "^14.0.1"
   },
   "devDependencies": {
