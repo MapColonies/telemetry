@@ -9,7 +9,7 @@ export function defaultMetricsMiddleware(prefix?: string, labels?: Record<string
       res.set('Content-Type', register.contentType);
       res.end(await register.metrics());
     } catch (error) {
-      next(error);
+      return next(error);
     }
   };
 }
