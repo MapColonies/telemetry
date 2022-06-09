@@ -14,8 +14,8 @@ export class Tracing implements TelemetryBase<void> {
   private provider?: NodeTracerProvider;
   private readonly config: TracingConfig;
   public constructor(
-    private readonly insturmentations?: InstrumentationOption[],
-    private readonly autoInsturmentationsConfigMap?: InstrumentationConfigMap,
+    private readonly instrumentations?: InstrumentationOption[],
+    private readonly autoInstrumentationsConfigMap?: InstrumentationConfigMap,
     private readonly attributes?: api.Attributes,
     private readonly debug?: boolean
   ) {
@@ -54,10 +54,10 @@ export class Tracing implements TelemetryBase<void> {
     registerInstrumentations({
       instrumentations: [
         ...(getNodeAutoInstrumentations({
-          ...this.autoInsturmentationsConfigMap,
+          ...this.autoInstrumentationsConfigMap,
           '@opentelemetry/instrumentation-pino': { enabled: false },
         }) as InstrumentationOption[]),
-        ...(this.insturmentations ?? []),
+        ...(this.instrumentations ?? []),
       ],
     });
   }
