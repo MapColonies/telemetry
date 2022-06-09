@@ -40,16 +40,6 @@ export class Tracing implements TelemetryBase<void> {
       }),
     });
 
-    registerInstrumentations({
-      instrumentations: [
-        ...(getNodeAutoInstrumentations({
-          ...this.autoInsturmentationsConfigMap,
-          '@opentelemetry/instrumentation-pino': { enabled: false },
-        }) as InstrumentationOption[]),
-        ...(this.insturmentations ?? []),
-      ],
-    });
-
     const exporter = new OTLPTraceExporter(exporterConfig);
 
     this.provider.addSpanProcessor(new BatchSpanProcessor(exporter));
@@ -60,6 +50,16 @@ export class Tracing implements TelemetryBase<void> {
     }
 
     this.provider.register();
+
+    registerInstrumentations({
+      instrumentations: [
+        ...(getNodeAutoInstrumentations({
+          ...this.autoInsturmentationsConfigMap,
+          '@opentelemetry/instrumentation-pino': { enabled: false },
+        }) as InstrumentationOption[]),
+        ...(this.insturmentations ?? []),
+      ],
+    });
   }
 
   public async stop(): Promise<void> {
