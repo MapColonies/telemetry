@@ -7,9 +7,9 @@ export const contexBindingHelper = <T>(parentSpan: Span, func: T): T => {
 };
 
 export const ignoreIncomingRequestUrl = (urlsToIgnore: RegExp[]): ((request: IncomingMessage) => boolean) => {
-  return (request): boolean => urlsToIgnore.every((regex) => regex.test(request.url ?? ''));
+  return (request): boolean => urlsToIgnore.some((regex) => regex.test(request.url ?? ''));
 };
 
 export const ignoreOutgoingRequestPath = (pathsToIgnore: RegExp[]): ((request: RequestOptions) => boolean) => {
-  return (request): boolean => pathsToIgnore.every((regex) => regex.test(request.path ?? ''));
+  return (request): boolean => pathsToIgnore.some((regex) => regex.test(request.path ?? ''));
 };
