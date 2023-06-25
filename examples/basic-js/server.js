@@ -1,6 +1,6 @@
 const { Tracing, Metrics } = require('@map-colonies/telemetry');
 const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
-const metricsApi = require('@opentelemetry/api-metrics');
+const metricsApi = require('@opentelemetry/api');
 
 const ignoredPaths = /^.*\/v1\/metrics.*$/;
 
@@ -20,8 +20,8 @@ process.on('SIGTERM', async () => {
   await tracing.stop();
 });
 
-// const metrics = new Metrics({ [SemanticResourceAttributes.DEPLOYMENT_ENVIRONMENT]: 'TEST' });
-// metrics.start();
+const metrics = new Metrics({ [SemanticResourceAttributes.DEPLOYMENT_ENVIRONMENT]: 'TEST' });
+metrics.start();
 
 const express = require('express');
 const app = express();
