@@ -1,6 +1,10 @@
 import { Registry, collectDefaultMetrics } from 'prom-client';
+import promBundle from 'express-prom-bundle';
 import * as express from 'express';
 
+/**
+ * @deprecated since version v5.1, please use collectMetricsExpressMiddleware
+ */
 export function defaultMetricsMiddleware(prefix?: string, labels?: Record<string, string>): express.RequestHandler {
   const register = new Registry();
   collectDefaultMetrics({ prefix, register, labels });
@@ -12,4 +16,33 @@ export function defaultMetricsMiddleware(prefix?: string, labels?: Record<string
       return next(error);
     }
   };
+}
+
+export function collectMetricsExpressMiddleware(
+  collectExpressAppMetrics: boolean = true,
+  collectNodeMetrics: boolean = true,
+  prefix?: string,
+  labels?: Record<string, string>
+): express.RequestHandler {
+  const register = new Registry();
+  if (collectNodeMetrics) {
+    collectDefaultMetrics({ prefix, labels, register });
+  }
+  let promBundleConfig: promBundle.Opts = {
+    includeUp: true,
+    customLabels: labels,
+    promRegistry: register,
+    includeMethod: false,
+    includeStatusCode: false,
+    includePath: false,
+  };
+  if (collectExpressAppMetrics) {
+    promBundleConfig = {
+      ...promBundleConfig,
+      includeMethod: true,
+      includeStatusCode: true,
+      includePath: true,
+    };
+  }
+  return promBundle(promBundleConfig);
 }

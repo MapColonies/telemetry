@@ -47,6 +47,7 @@
     "@opentelemetry/sdk-trace-base": "^1.14.0",
     "@opentelemetry/sdk-trace-node": "^1.14.0",
     "env-var": "^7.1.1",
+    "express-prom-bundle": "^6.6.0",
     "prom-client": "^14.2.0"
   },
   "devDependencies": {
