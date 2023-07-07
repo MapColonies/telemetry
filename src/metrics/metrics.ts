@@ -1,8 +1,8 @@
 import * as api from '@opentelemetry/api';
-import { metrics } from '@opentelemetry/api-metrics';
-import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
+import { metrics } from '@opentelemetry/api';
+import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-http';
 import { Resource } from '@opentelemetry/resources';
-import { ConsoleMetricExporter, MeterProvider, PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics-base';
+import { ConsoleMetricExporter, MeterProvider, PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 import { TelemetryBase } from '../common/interfaces';
 import { getMetricsConfig, MetricsConfig } from './config';

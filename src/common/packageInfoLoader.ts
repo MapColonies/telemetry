@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import { readPackageJsonSync } from '@map-colonies/read-pkg';
 
 interface PackageInfo {
   name: string;
@@ -11,8 +11,11 @@ const loadPackageInfo = (): PackageInfo => {
   if (packageInfo) {
     return packageInfo;
   }
-  const packageContent = fs.readFileSync('./package.json', 'utf-8');
-  packageInfo = JSON.parse(packageContent) as PackageInfo;
+  const packageJSON = readPackageJsonSync();
+  packageInfo = {
+    name: packageJSON.name ?? 'unknown_service',
+    version: packageJSON.version ?? 'v0.0.0',
+  };
   return packageInfo;
 };
 
