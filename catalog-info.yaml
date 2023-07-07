@@ -5,7 +5,7 @@ metadata:
   description: A package for initializing opentelmetry collectors
   annotations:
     github.com/project-slug: MapColonies/telemetry
-  tags: 
+  tags:
     - nodejs
     - typescript
     - observability

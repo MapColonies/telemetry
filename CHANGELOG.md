@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/MapColonies/telemetry/compare/v4.1.0...v4.2.0) (2023-06-22)
+
+
+### Features
+
+* add backstage docs ([425355b](https://github.com/MapColonies/telemetry/commit/425355b08bfb5887118d571db4f51f4020e55365))
+* added new metrics middleware ([#51](https://github.com/MapColonies/telemetry/issues/51)) ([2779bca](https://github.com/MapColonies/telemetry/commit/2779bca27c3869087d94db5cdee1713ff1505934))
+
 ## [4.1.0](https://github.com/MapColonies/telemetry/compare/v4.0.0...v4.1.0) (2022-06-13)
 
 

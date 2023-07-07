@@ -47,7 +47,7 @@
     "@opentelemetry/sdk-trace-base": "^1.14.0",
     "@opentelemetry/sdk-trace-node": "^1.14.0",
     "env-var": "^7.1.1",
-    "prom-client": "^14.0.1"
+    "prom-client": "^14.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
