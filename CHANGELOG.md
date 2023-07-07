@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/MapColonies/telemetry/compare/v4.2.0...v5.0.0) (2023-07-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** upgraded to otel v1.14 (#52)
+
+### Bug Fixes
+
+* **deps:** fixed localhost on package-lock.json ([5e68870](https://github.com/MapColonies/telemetry/commit/5e6887027ab26b443b49f9f124c6280c50629cdc))
+
+
+* **deps:** upgraded to otel v1.14 ([#52](https://github.com/MapColonies/telemetry/issues/52)) ([0e186ff](https://github.com/MapColonies/telemetry/commit/0e186ffeebc09a287186543463d10c8b7ebf9a3d))
+
 ## [4.2.0](https://github.com/MapColonies/telemetry/compare/v4.1.0...v4.2.0) (2023-06-22)
 
 
