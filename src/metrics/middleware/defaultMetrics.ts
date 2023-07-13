@@ -1,6 +1,8 @@
+import os from 'os';
 import { Registry, collectDefaultMetrics } from 'prom-client';
 import promBundle from 'express-prom-bundle';
 import * as express from 'express';
+import { loadPackageInfo } from '../../common/packageInfoLoader';
 
 /**
  * @deprecated since version v5.1, please use collectMetricsExpressMiddleware
@@ -28,9 +30,13 @@ export function collectMetricsExpressMiddleware(
   if (collectNodeMetrics) {
     collectDefaultMetrics({ prefix, labels, register });
   }
+  const defaultLabels = {
+    hostname: os.hostname(),
+    service_name: loadPackageInfo().name,
+  };
   let promBundleConfig: promBundle.Opts = {
     includeUp: true,
-    customLabels: labels,
+    customLabels: { labels, ...defaultLabels },
     promRegistry: register,
     includeMethod: false,
     includeStatusCode: false,
