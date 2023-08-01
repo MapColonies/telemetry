@@ -1,28 +1,23 @@
-import os from 'os';
-import client, { Registry, collectDefaultMetrics } from 'prom-client';
-import promBundle from 'express-prom-bundle';
+import { hostname as osHostname } from 'os';
+import { Registry, collectDefaultMetrics, Gauge, register } from 'prom-client';
+import * as promBundle from 'express-prom-bundle';
 import * as express from 'express';
 import { loadPackageInfo } from '../../common/packageInfoLoader';
 
-/**
- * @deprecated since version v5.1, please use collectMetricsExpressMiddleware
- */
-export function defaultMetricsMiddleware(prefix?: string, labels?: Record<string, string>): express.RequestHandler {
-  const register = new Registry();
-  collectDefaultMetrics({ prefix, register, labels });
-  return async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-    try {
-      res.set('Content-Type', register.contentType);
-      res.end(await register.metrics());
-    } catch (error) {
-      return next(error);
-    }
+const deconstructSemver = (semverString: string): { major: string; minor: string; patch: string; prerelease: string; build: string } | null => {
+  const match = /^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([\w-]+))?(?:\+([\w-]+))?/i.exec(semverString);
+  if (!match) {
+    return null;
+  }
+  return {
+    major: match[1],
+    minor: match[2],
+    patch: match[3],
+    prerelease: match[4],
+    build: match[5],
   };
-}
+};
 
-/**
- * @deprecated since version v5.1, please use collectMetricsExpressMiddleware
- */
 export function metricsMiddleware(
   registry: Registry,
   shouldCollectDefaultMetrics = true,
@@ -42,61 +37,84 @@ export function metricsMiddleware(
   };
 }
 
-export function collectMetricsExpressMiddleware(
-  register: Registry = new Registry(),
-  collectExpressAppMetrics: boolean = true,
-  collectNodeMetrics: boolean = true,
-  collectServiceVersion: boolean = true,
-  prefix?: string,
-  labels?: Record<string, string>
-): express.RequestHandler {
-  const pacakgeInfo = loadPackageInfo();
-  const mergedLabels = {
-    hostname: os.hostname(),
-    service_name: pacakgeInfo.name,
-    ...labels,
+/**
+ * @deprecated since version v5.1, please use collectMetricsExpressMiddleware
+ */
+export function defaultMetricsMiddleware(prefix?: string, labels?: Record<string, string>): express.RequestHandler {
+  const register = new Registry();
+  collectDefaultMetrics({ prefix, register, labels });
+  return async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+    try {
+      res.set('Content-Type', register.contentType);
+      res.end(await register.metrics());
+    } catch (error) {
+      return next(error);
+    }
   };
-  if (collectNodeMetrics) {
-    collectDefaultMetrics({ prefix, labels: mergedLabels, register });
+}
+
+interface Opts {
+  registry: Registry;
+  collectNodeMetrics: boolean;
+  collectServiceVersion: boolean;
+  prefix: string;
+  labels: Record<string, string>;
+}
+
+export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBundle.Middleware {
+  const pacakgeInfo = loadPackageInfo();
+  const defaultOpts: Opts = {
+    prefix: '',
+    labels: {},
+    collectNodeMetrics: true,
+    collectServiceVersion: true,
+    registry: new Registry(),
+  };
+  const meregedOptions = { ...defaultOpts, ...options };
+
+  const mergedLabels = {
+    hostname: osHostname(),
+    service_name: pacakgeInfo.name,
+    ...(options.labels ? options.labels : {}),
+  };
+  register.setDefaultLabels(mergedLabels);
+  if (meregedOptions.collectNodeMetrics) {
+    collectDefaultMetrics({ prefix: meregedOptions.prefix, labels: mergedLabels, register: meregedOptions.registry });
   }
-  if (collectServiceVersion) {
-    const gaugeLabels = ['hostname'];
-    const versionArr = pacakgeInfo.version.split('.').map(parseInt);
-    const serviceVersionGaugeMajor = new client.Gauge({
-      name: 'service_version_major',
-      help: 'Major semver version of service',
+
+  if (meregedOptions.collectServiceVersion) {
+    const gaugeLabels = ['service_version_major', 'service_version_minor', 'service_version_patch', 'service_version_prerelease'];
+    const semver = deconstructSemver(pacakgeInfo.version);
+    if (!semver) {
+      throw new Error('package.json includes version not according to semver spec');
+    }
+    const { major, minor, patch, prerelease } = semver;
+    const serviceVersionGauge = new Gauge({
+      name: `${meregedOptions.prefix ? `${meregedOptions.prefix}_` : ''}service_version`,
+      help: 'Service Version Specified in package.json file',
       labelNames: gaugeLabels,
+      registers: [meregedOptions.registry],
     });
-    const serviceVersionGaugeMinor = new client.Gauge({
-      name: 'service_version_minor',
-      help: 'Minor semver version of service',
-      labelNames: gaugeLabels,
-    });
-    const serviceVersionGaugePatch = new client.Gauge({
-      name: 'service_version_patch',
-      help: 'Patch semver version of service',
-      labelNames: gaugeLabels,
-    });
-    serviceVersionGaugeMajor.set({ hostname: mergedLabels.hostname }, versionArr[0]);
-    serviceVersionGaugeMinor.set({ hostname: mergedLabels.hostname }, versionArr[1]);
-    serviceVersionGaugePatch.set({ hostname: mergedLabels.hostname }, versionArr[2]);
+    serviceVersionGauge.set(
+      {
+        ...mergedLabels,
+        service_version_major: major,
+        service_version_minor: minor,
+        service_version_patch: patch,
+        service_version_prerelease: prerelease,
+      },
+      1
+    );
   }
 
   let promBundleConfig: promBundle.Opts = {
+    promRegistry: meregedOptions.registry,
+    autoregister: true,
     includeUp: true,
     customLabels: mergedLabels,
-    promRegistry: register,
-    includeMethod: false,
-    includeStatusCode: false,
-    includePath: false,
+    includeMethod: true,
+    includeStatusCode: true,
+    includePath: true,
   };
-  if (collectExpressAppMetrics) {
-    promBundleConfig = {
-      ...promBundleConfig,
-      includeMethod: true,
-      includeStatusCode: true,
-      includePath: true,
-    };
-  }
   return promBundle(promBundleConfig);
 }
