@@ -18,6 +18,14 @@ const deconstructSemver = (semverString: string): { major: string; minor: string
   };
 };
 
+interface Opts {
+  registry: Registry;
+  collectNodeMetrics: boolean;
+  collectServiceVersion: boolean;
+  prefix: string;
+  labels: Record<string, string>;
+}
+
 export function metricsMiddleware(
   registry: Registry,
   shouldCollectDefaultMetrics = true,
@@ -53,14 +61,6 @@ export function defaultMetricsMiddleware(prefix?: string, labels?: Record<string
   };
 }
 
-interface Opts {
-  registry: Registry;
-  collectNodeMetrics: boolean;
-  collectServiceVersion: boolean;
-  prefix: string;
-  labels: Record<string, string>;
-}
-
 export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBundle.Middleware {
   const pacakgeInfo = loadPackageInfo();
   const defaultOpts: Opts = {
@@ -71,7 +71,7 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
     registry: new Registry(),
   };
   const meregedOptions = { ...defaultOpts, ...options };
-
+  /* eslint-disable @typescript-eslint/naming-convention */
   const mergedLabels = {
     hostname: osHostname(),
     service_name: pacakgeInfo.name,
@@ -95,6 +95,7 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
       labelNames: gaugeLabels,
       registers: [meregedOptions.registry],
     });
+    /* eslint-disable @typescript-eslint/naming-convention */
     serviceVersionGauge.set(
       {
         ...mergedLabels,
@@ -107,7 +108,7 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
     );
   }
 
-  let promBundleConfig: promBundle.Opts = {
+  const promBundleConfig: promBundle.Opts = {
     promRegistry: meregedOptions.registry,
     autoregister: true,
     includeUp: true,
