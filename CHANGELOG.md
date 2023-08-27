@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### Features
+
+* added defaultLabels ([ca565a5](https://github.com/MapColonies/telemetry/commit/ca565a5ba1a83667e3cbd2623e0a4a174347f3e1))
+* collectMetricsExpressMiddleware ([8f8001f](https://github.com/MapColonies/telemetry/commit/8f8001fa4cb46dfc5e87667115859b3a78f5c3a1))
+* **metrics:** added collectMetricsExpressMiddleware and deprecated defaultMetricsMiddleware ([5604cc3](https://github.com/MapColonies/telemetry/commit/5604cc3350076c0659e72b3251fdda1d184670be))
+
 ## [5.0.0](https://github.com/MapColonies/telemetry/compare/v4.2.0...v5.0.0) (2023-07-07)
 
 
