@@ -3,20 +3,7 @@ import { Registry, collectDefaultMetrics, Gauge, register } from 'prom-client';
 import * as promBundle from 'express-prom-bundle';
 import * as express from 'express';
 import { loadPackageInfo } from '../../common/packageInfoLoader';
-
-const deconstructSemver = (semverString: string): { major: string; minor: string; patch: string; prerelease: string; build: string } | null => {
-  const match = /^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([\w-]+))?(?:\+([\w-]+))?/i.exec(semverString);
-  if (!match) {
-    return null;
-  }
-  return {
-    major: match[1],
-    minor: match[2],
-    patch: match[3],
-    prerelease: match[4],
-    build: match[5],
-  };
-};
+import { deconstructSemver } from '../../common/util';
 
 interface Opts {
   registry: Registry;
@@ -63,14 +50,14 @@ export function defaultMetricsMiddleware(prefix?: string, labels?: Record<string
 
 export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBundle.Middleware {
   const pacakgeInfo = loadPackageInfo();
-  const defaultOpts: Opts = {
+  const defaultOpts = {
     prefix: '',
     labels: {},
     collectNodeMetrics: true,
     collectServiceVersion: true,
     registry: new Registry(),
-  };
-  const meregedOptions = { ...defaultOpts, ...options };
+  } satisfies Opts;
+  const mergedOptions = { ...defaultOpts, ...options };
   /* eslint-disable @typescript-eslint/naming-convention */
   const mergedLabels = {
     hostname: osHostname(),
@@ -78,11 +65,11 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
     ...(options.labels ? options.labels : {}),
   };
   register.setDefaultLabels(mergedLabels);
-  if (meregedOptions.collectNodeMetrics) {
-    collectDefaultMetrics({ prefix: meregedOptions.prefix, labels: mergedLabels, register: meregedOptions.registry });
+  if (mergedOptions.collectNodeMetrics) {
+    collectDefaultMetrics({ prefix: mergedOptions.prefix, labels: mergedLabels, register: mergedOptions.registry });
   }
 
-  if (meregedOptions.collectServiceVersion) {
+  if (mergedOptions.collectServiceVersion) {
     const gaugeLabels = ['service_version_major', 'service_version_minor', 'service_version_patch', 'service_version_prerelease'];
     const semver = deconstructSemver(pacakgeInfo.version);
     if (!semver) {
@@ -90,10 +77,10 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
     }
     const { major, minor, patch, prerelease } = semver;
     const serviceVersionGauge = new Gauge({
-      name: `${meregedOptions.prefix ? `${meregedOptions.prefix}_` : ''}service_version`,
+      name: `${mergedOptions.prefix ? `${mergedOptions.prefix}_` : ''}service_version`,
       help: 'Service Version Specified in package.json file',
       labelNames: gaugeLabels,
-      registers: [meregedOptions.registry],
+      registers: [mergedOptions.registry],
     });
     /* eslint-disable @typescript-eslint/naming-convention */
     serviceVersionGauge.set(
@@ -109,7 +96,7 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
   }
 
   const promBundleConfig: promBundle.Opts = {
-    promRegistry: meregedOptions.registry,
+    promRegistry: mergedOptions.registry,
     autoregister: true,
     includeUp: true,
     customLabels: mergedLabels,

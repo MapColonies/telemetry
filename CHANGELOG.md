@@ -2,33 +2,6 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [5.1.13](https://github.com/MapColonies/telemetry/compare/v5.1.12...v5.1.13) (2023-08-01)
-
-### [5.1.12](https://github.com/MapColonies/telemetry/compare/v5.1.11...v5.1.12) (2023-08-01)
-
-### [5.1.11](https://github.com/MapColonies/telemetry/compare/v5.1.10...v5.1.11) (2023-08-01)
-
-### [5.1.10](https://github.com/MapColonies/telemetry/compare/v5.1.9...v5.1.10) (2023-08-01)
-
-### [5.1.9](https://github.com/MapColonies/telemetry/compare/v5.1.8...v5.1.9) (2023-07-31)
-
-### [5.1.8](https://github.com/MapColonies/telemetry/compare/v5.1.7...v5.1.8) (2023-07-31)
-
-### [5.1.7](https://github.com/MapColonies/telemetry/compare/v5.1.5...v5.1.7) (2023-07-31)
-
-### [5.1.5](https://github.com/MapColonies/telemetry/compare/v5.1.4...v5.1.5) (2023-07-31)
-
-### [5.1.4](https://github.com/MapColonies/telemetry/compare/v5.1.3...v5.1.4) (2023-07-31)
-
-### [5.1.3](https://github.com/MapColonies/telemetry/compare/v5.1.2...v5.1.3) (2023-07-31)
-
-### [5.1.2](https://github.com/MapColonies/telemetry/compare/v5.1.1...v5.1.2) (2023-07-31)
-
-### [5.1.1](https://github.com/MapColonies/telemetry/compare/v5.1.0...v5.1.1) (2023-07-31)
-
-## [5.1.0](https://github.com/MapColonies/telemetry/compare/v5.0.0...v5.1.0) (2023-07-31)
-
-
 ### Features
 
 * added defaultLabels ([ca565a5](https://github.com/MapColonies/telemetry/commit/ca565a5ba1a83667e3cbd2623e0a4a174347f3e1))
