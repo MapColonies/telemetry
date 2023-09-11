@@ -30,3 +30,15 @@ services:
     image: grafana/grafana
     ports:
       - '3000:3000'
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      - TELEMETRY_TRACING_ENABLED=true
+      - TELEMETRY_METRICS_ENABLED=true
+      - TELEMETRY_METRICS_URL=http://otel-collector:4318/v1/metrics
+      - TELEMETRY_TRACING_URL=http://otel-collector:4318/v1/traces
