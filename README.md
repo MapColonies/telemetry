@@ -68,7 +68,7 @@ metrics.stop().then(() => console.log('done'));
 | name |allowed value| default value | description 
 |---|---|---|---|
 |TELEMETRY_TRACING_ENABLED|'true', 'false'|'false'|Should Tracing be enabled
-|TELEMETRY_TRACING_URL<span style="color:red">*</span>|string|http://localhost:4318/v1/trace|The URL to the OpenTelemetry Collector
+|TELEMETRY_TRACING_URL<span style="color:red">*</span>|string|http://localhost:4318/v1/traces|The URL to the OpenTelemetry Collector
 |TELEMETRY_TRACING_RATIO|float|1|The amount of traces to sample 
 
 <span style="color:red">*</span> required (only when tracing is enabled).
