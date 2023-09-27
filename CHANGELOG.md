@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.1](https://github.com/MapColonies/telemetry/compare/v5.1.0...v5.1.1) (2023-09-27)
+
+
+### Bug Fixes
+
+* added missing merrgedLabels to list of gauge labels ([5391ca6](https://github.com/MapColonies/telemetry/commit/5391ca65c15f5f79d26013d1afec3440ae0ce546))
+* examples basic-prom-bundle pushing traces ([0840ec2](https://github.com/MapColonies/telemetry/commit/0840ec254e87c0f43ba4db5a2e5b8b01c74f5663))
+* examples were pointing to localhost registry ([0ebb390](https://github.com/MapColonies/telemetry/commit/0ebb390674ec3249e19d7c5421bd2c98ba401549))
+
 ## [5.1.0](https://github.com/MapColonies/telemetry/compare/v5.0.0...v5.1.0) (2023-08-27)
 
 
