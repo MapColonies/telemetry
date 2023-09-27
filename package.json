@@ -1,6 +1,6 @@
 {
   "name": "@map-colonies/telemetry",
-  "version": "5.1.1",
+  "version": "5.1.2",
   "description": "Package for everything opentelemetry related in map colonies",
   "main": "./dist/index.js",
   "scripts": {
