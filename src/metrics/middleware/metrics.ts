@@ -70,7 +70,13 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
   }
 
   if (mergedOptions.collectServiceVersion) {
-    const gaugeLabels = ['service_version_major', 'service_version_minor', 'service_version_patch', 'service_version_prerelease'];
+    const gaugeLabels = [
+      ...Object.keys(mergedLabels),
+      'service_version_major',
+      'service_version_minor',
+      'service_version_patch',
+      'service_version_prerelease',
+    ];
     const semver = deconstructSemver(pacakgeInfo.version);
     if (!semver) {
       throw new Error('package.json includes version not according to semver spec');
