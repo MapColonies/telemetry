@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/MapColonies/telemetry/compare/v5.1.2...v5.2.0) (2023-12-27)
+
+
+### Bug Fixes
+
+* examples following v5.1.2 for gauge labels ([c331ea8](https://github.com/MapColonies/telemetry/commit/c331ea8ee7bf22417f88cb37a0c36b20a0ce760c))
+
 ### [5.1.2](https://github.com/MapColonies/telemetry/compare/v5.1.1...v5.1.2) (2023-09-27)
 
 ### [5.1.1](https://github.com/MapColonies/telemetry/compare/v5.1.0...v5.1.1) (2023-09-27)
