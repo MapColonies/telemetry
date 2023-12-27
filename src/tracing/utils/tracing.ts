@@ -17,6 +17,13 @@ export const ignoreOutgoingRequestPath = (pathsToIgnore: RegExp[]): ((request: R
   return (request): boolean => pathsToIgnore.some((regex) => regex.test(request.path ?? ''));
 };
 
+/**
+ * Calls the given asynchronous function with oTel tracing span instrumentation
+ * @param fn function to be called
+ * @param tracer tracer to be used
+ * @param spanName name of the span to be created
+ * @returns the result of the original function
+ */
 export const asyncCallWithSpan = async <T>(fn: () => Promise<T>, tracer: Tracer, spanName: string): Promise<T> => {
   if (!tracingConfig.isEnabled) {
     return fn();
@@ -36,6 +43,13 @@ export const asyncCallWithSpan = async <T>(fn: () => Promise<T>, tracer: Tracer,
   });
 };
 
+/**
+ * Calls the given function with oTel tracing span instrumentation
+ * @param fn function to be called
+ * @param tracer tracer to be used
+ * @param spanName name of the span to be created
+ * @returns the result of the original function
+ */
 export const callWithSpan = <T>(fn: () => T, tracer: Tracer, spanName: string): T => {
   if (!tracingConfig.isEnabled) {
     return fn();
@@ -52,11 +66,20 @@ export const callWithSpan = <T>(fn: () => T, tracer: Tracer, spanName: string): 
   });
 };
 
+/**
+ * Ends the given span with status OK
+ * @param span span to be ended
+ */
 export const handleSpanOnSuccess = (span: Span): void => {
   span.setStatus({ code: SpanStatusCode.OK });
   span.end();
 };
 
+/**
+ * Ends the given span with status ERROR and records the error
+ * @param span span to be ended
+ * @param error error to be recorded
+ */
 export const handleSpanOnError = (span: Span, error?: unknown): void => {
   span.setStatus({ code: SpanStatusCode.ERROR });
 
