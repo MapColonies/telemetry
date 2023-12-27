@@ -80,4 +80,9 @@ metrics.stop().then(() => console.log('done'));
 |TELEMETRY_METRICS_URL<span style="color:red">*</span>|string|http://localhost:4318/v1/metrics|The URL to the OpenTelemetry Collector
 |TELEMETRY_METRICS_INTERVAL|number|15000|The interval in miliseconds between sending data to the collector
 
-<span style="color:red">*</span> required (only when tracing is enabled). 
+<span style="color:red">*</span> required (only when tracing is enabled).
+
+### How to release
+Run the command `npm run release --` to bump the version in all the files and create a changelog.
+
+For more detailed documentation and examples check: https://github.com/conventional-changelog/standard-version
