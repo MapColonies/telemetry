@@ -33,11 +33,11 @@ export const asyncCallWithSpan = async <T>(fn: () => Promise<T>, tracer: Tracer,
       fn()
         .then((result) => {
           handleSpanOnSuccess(span);
-          resolve(result);
+          return resolve(result);
         })
         .catch((error) => {
           handleSpanOnError(span, error);
-          reject(error);
+          return reject(error);
         });
     });
   });
