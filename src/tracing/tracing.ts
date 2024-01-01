@@ -55,8 +55,7 @@ export class Tracing implements TelemetryBase<void> {
       instrumentations: [
         ...(getNodeAutoInstrumentations({
           ...this.autoInstrumentationsConfigMap,
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@opentelemetry/instrumentation-pino': { enabled: false },
+          ['@opentelemetry/instrumentation-pino']: { enabled: false },
         }) as InstrumentationOption[]),
         ...(this.instrumentations ?? []),
       ],
