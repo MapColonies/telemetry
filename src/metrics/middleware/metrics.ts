@@ -22,13 +22,16 @@ export function metricsMiddleware(
   if (shouldCollectDefaultMetrics) {
     collectDefaultMetrics({ prefix: defaultMetricsPrefix, register: registry, labels: defaultMetricsLabels });
   }
-  return async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-    try {
-      res.set('Content-Type', registry.contentType);
-      res.end(await registry.metrics());
-    } catch (error) {
-      return next(error);
-    }
+  return (req: express.Request, res: express.Response, next: express.NextFunction): void => {
+    registry
+      .metrics()
+      .then((metrics) => {
+        res.set('Content-Type', registry.contentType);
+        res.end(metrics);
+      })
+      .catch((error) => {
+        next(error);
+      });
   };
 }
 
@@ -38,13 +41,16 @@ export function metricsMiddleware(
 export function defaultMetricsMiddleware(prefix?: string, labels?: Record<string, string>): express.RequestHandler {
   const register = new Registry();
   collectDefaultMetrics({ prefix, register, labels });
-  return async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-    try {
-      res.set('Content-Type', register.contentType);
-      res.end(await register.metrics());
-    } catch (error) {
-      return next(error);
-    }
+  return (req: express.Request, res: express.Response, next: express.NextFunction): void => {
+    register
+      .metrics()
+      .then((metrics) => {
+        res.set('Content-Type', register.contentType);
+        res.end(metrics);
+      })
+      .catch((error) => {
+        next(error);
+      });
   };
 }
 
