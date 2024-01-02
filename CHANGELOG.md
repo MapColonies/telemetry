@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.3.0](https://github.com/MapColonies/telemetry/compare/v5.2.0...v5.3.0) (2024-01-02)
+
+
+### Features
+
+* **tracing:** add utils for using spans ([#58](https://github.com/MapColonies/telemetry/issues/58)) ([2257d1a](https://github.com/MapColonies/telemetry/commit/2257d1a0822725b31cfca4d66a219a6834de2db8))
+
 ## [5.2.0](https://github.com/MapColonies/telemetry/compare/v5.1.2...v5.2.0) (2023-12-27)
 
 
