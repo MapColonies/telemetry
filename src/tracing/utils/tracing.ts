@@ -24,13 +24,13 @@ export const ignoreOutgoingRequestPath = (pathsToIgnore: RegExp[]): ((request: R
  * @param spanName name of the span to be created
  * @returns the result of the original function
  */
-export const asyncCallWithSpan = async <T>(fn: () => Promise<T>, tracer: Tracer, spanName: string): Promise<T> => {
+export const asyncCallWithSpan = async <T>(fn: (span?: Span) => Promise<T>, tracer: Tracer, spanName: string): Promise<T> => {
   if (!tracingConfig.isEnabled) {
     return fn();
   }
   return new Promise((resolve, reject) => {
     return tracer.startActiveSpan(spanName, (span) => {
-      fn()
+      fn(span)
         .then((result) => {
           handleSpanOnSuccess(span);
           return resolve(result);
@@ -50,13 +50,13 @@ export const asyncCallWithSpan = async <T>(fn: () => Promise<T>, tracer: Tracer,
  * @param spanName name of the span to be created
  * @returns the result of the original function
  */
-export const callWithSpan = <T>(fn: () => T, tracer: Tracer, spanName: string): T => {
+export const callWithSpan = <T>(fn: (span?: Span) => T, tracer: Tracer, spanName: string): T => {
   if (!tracingConfig.isEnabled) {
     return fn();
   }
   return tracer.startActiveSpan(spanName, (span) => {
     try {
-      const result = fn();
+      const result = fn(span);
       handleSpanOnSuccess(span);
       return result;
     } catch (error) {
