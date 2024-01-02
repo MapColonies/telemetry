@@ -1,2 +1,2 @@
 export { Metrics } from './metrics';
-export { defaultMetricsMiddleware, collectMetricsExpressMiddleware } from './middleware/metrics';
+export { metricsMiddleware, defaultMetricsMiddleware, collectMetricsExpressMiddleware } from './middleware/metrics';

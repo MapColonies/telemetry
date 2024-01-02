@@ -70,7 +70,11 @@ export const callWithSpan = <T>(fn: (span?: Span) => T, tracer: Tracer, spanName
  * Ends the given span with status OK
  * @param span span to be ended
  */
-export const handleSpanOnSuccess = (span: Span): void => {
+export const handleSpanOnSuccess = (span: Span | undefined): void => {
+  if (!span) {
+    return;
+  }
+
   span.setStatus({ code: SpanStatusCode.OK });
   span.end();
 };
@@ -80,7 +84,11 @@ export const handleSpanOnSuccess = (span: Span): void => {
  * @param span span to be ended
  * @param error error to be recorded
  */
-export const handleSpanOnError = (span: Span, error?: unknown): void => {
+export const handleSpanOnError = (span: Span | undefined, error?: unknown): void => {
+  if (!span) {
+    return;
+  }
+
   span.setStatus({ code: SpanStatusCode.ERROR });
 
   if (error instanceof Error) {
