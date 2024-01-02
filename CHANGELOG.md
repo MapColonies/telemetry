@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.3.1](https://github.com/MapColonies/telemetry/compare/v5.3.0...v5.3.1) (2024-01-02)
+
+
+### Bug Fixes
+
+* **tracing:** fix utils to handle undefined span ([#60](https://github.com/MapColonies/telemetry/issues/60)) ([7c3a69c](https://github.com/MapColonies/telemetry/commit/7c3a69c9127fd46086a3fbd5365dbd1e35f954e5))
+
 ## [5.3.0](https://github.com/MapColonies/telemetry/compare/v5.2.0...v5.3.0) (2024-01-02)
 
 
