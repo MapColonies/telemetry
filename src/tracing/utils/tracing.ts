@@ -1,5 +1,5 @@
 import { IncomingMessage, RequestOptions } from 'http';
-import api, { Span, SpanStatusCode, Tracer } from '@opentelemetry/api';
+import api, { Span, SpanOptions, SpanStatusCode, Tracer } from '@opentelemetry/api';
 import { getTracingConfig } from '../config';
 
 const tracingConfig = getTracingConfig();
@@ -22,14 +22,20 @@ export const ignoreOutgoingRequestPath = (pathsToIgnore: RegExp[]): ((request: R
  * @param fn function to be called
  * @param tracer tracer to be used
  * @param spanName name of the span to be created
+ * @param spanOptions Options object needed for span creation with optional attributes: kind, attributes, links, startTime, root
  * @returns the result of the original function
  */
-export const asyncCallWithSpan = async <T>(fn: (span?: Span) => Promise<T>, tracer: Tracer, spanName: string): Promise<T> => {
+export const asyncCallWithSpan = async <T>(
+  fn: (span?: Span) => Promise<T>,
+  tracer: Tracer,
+  spanName: string,
+  spanOptions?: SpanOptions
+): Promise<T> => {
   if (!tracingConfig.isEnabled) {
     return fn();
   }
   return new Promise((resolve, reject) => {
-    return tracer.startActiveSpan(spanName, (span) => {
+    return tracer.startActiveSpan(spanName, spanOptions ?? {}, (span) => {
       fn(span)
         .then((result) => {
           handleSpanOnSuccess(span);
@@ -48,13 +54,14 @@ export const asyncCallWithSpan = async <T>(fn: (span?: Span) => Promise<T>, trac
  * @param fn function to be called
  * @param tracer tracer to be used
  * @param spanName name of the span to be created
+ * @param spanOptions Options object needed for span creation with optional attributes: kind, attributes, links, startTime, root
  * @returns the result of the original function
  */
-export const callWithSpan = <T>(fn: (span?: Span) => T, tracer: Tracer, spanName: string): T => {
+export const callWithSpan = <T>(fn: (span?: Span) => T, tracer: Tracer, spanName: string, spanOptions?: SpanOptions): T => {
   if (!tracingConfig.isEnabled) {
     return fn();
   }
-  return tracer.startActiveSpan(spanName, (span) => {
+  return tracer.startActiveSpan(spanName, spanOptions ?? {}, (span) => {
     try {
       const result = fn(span);
       handleSpanOnSuccess(span);
