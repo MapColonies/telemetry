@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.0](https://github.com/MapColonies/telemetry/compare/v5.3.1...v5.4.0) (2024-03-21)
+
+
+### Bug Fixes
+
+* enable providing spanOption arguments on span creation ([#61](https://github.com/MapColonies/telemetry/issues/61)) ([f47f4f4](https://github.com/MapColonies/telemetry/commit/f47f4f4c11d44360a8210867295a4b3f49ffba55))
+
 ### [5.3.1](https://github.com/MapColonies/telemetry/compare/v5.3.0...v5.3.1) (2024-01-02)
 
 
