@@ -10,7 +10,7 @@ import { asyncCallWithSpan, callWithSpan } from '../utils/tracing';
  * @param descriptor the method descriptor
  * @returns the decorated descriptor
  */
-export function withSpan<This extends { tracer: Tracer }, Args extends unknown[], Return>(
+export function withSpanV4<This extends { tracer: Tracer }, Args extends unknown[], Return>(
   _target: This,
   propertyKey: string | symbol,
   descriptor: TypedPropertyDescriptor<(this: This, ...args: Args) => Return>
@@ -37,7 +37,7 @@ export function withSpan<This extends { tracer: Tracer }, Args extends unknown[]
  * @param descriptor the async method descriptor
  * @returns the decorated descriptor
  */
-export function withSpanAsync<This extends { tracer: Tracer }, Args extends unknown[], Return>(
+export function withSpanAsyncV4<This extends { tracer: Tracer }, Args extends unknown[], Return>(
   _target: This,
   propertyKey: string | symbol,
   descriptor: TypedPropertyDescriptor<(this: This, ...args: Args) => Promise<Return>>
