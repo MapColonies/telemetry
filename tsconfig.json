@@ -11,6 +11,6 @@
     "declarationMap": true,
     "noEmit": true
   },
-  "include": ["src"],
+  "include": ["src", "scripts/validate.ts"],
   "exclude": ["dist", "node_modules"]
 }

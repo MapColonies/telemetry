@@ -1,0 +1,8 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["src/semanticAttributes/**/*.json"],
+      "url": "./schemas/attribute.schema.json"
+    }
+  ]
+}
