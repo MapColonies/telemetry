@@ -14,23 +14,28 @@
         "subAttributes": {
           "jobId": {
             "propertyName": "mapcolonies.raster.job_management.job_id",
-            "deprecated": false
+            "deprecated": false,
+            "description": "Type of task as stored on db (uuid)"
           },
           "taskId": {
             "propertyName": "mapcolonies.raster.job_management.task_id",
-            "deprecated": false
+            "deprecated": false,
+            "description": "Type of task as stored on db (uuid)"
           },
           "jobType": {
             "propertyName": "mapcolonies.raster.job_management.job_type",
-            "deprecated": false
+            "deprecated": false,
+            "description": "Type of job as stored on db (uuid)"
           },
           "taskType": {
             "propertyName": "mapcolonies.raster.job_management.task_type",
-            "deprecated": false
+            "deprecated": false,
+            "description": "Type of task as stored on db (uuid)"
           },
           "serviceUrl": {
             "propertyName": "mapcolonies.raster.job_management.service_url",
-            "deprecated": false
+            "deprecated": false,
+            "description": "API url of job management service"
           }
         }
       },
@@ -42,7 +47,8 @@
         "subAttributes": {
           "catalogId": {
             "propertyName": "mapcolonies.raster.catalog_manager.catalog_id",
-            "deprecated": false
+            "deprecated": false,
+            "description": "layer Id as stored on raster catalog db"
           }
         }
       },
@@ -54,19 +60,23 @@
         "subAttributes": {
           "seedMode": {
             "propertyName": "mapcolonies.raster.cache_seeder.seed_mode",
-            "deprecated": false
+            "deprecated": false,
+            "description": "Mapproxy seed mode - seed or clean tiles"
           },
           "grids": {
             "propertyName": "mapcolonies.raster.cache_seeder.grids",
-            "deprecated": false
+            "deprecated": false,
+            "description": "Grids for seeding process"
           },
           "refreshBefore": {
             "propertyName": "mapcolonies.raster.cache_seeder.refresh_before",
-            "deprecated": false
+            "deprecated": false,
+            "description": "Time factor to running mapproxy-seed"
           },
           "seedYamlPath": {
             "propertyName": "mapcolonies.raster.cache_seeder.seed_yaml_path",
-            "deprecated": false
+            "deprecated": false,
+            "description": "Path of seed.yaml"
           }
         }
       },
@@ -78,11 +88,13 @@
         "subAttributes": {
           "cacheName": {
             "propertyName": "mapcolonies.raster.mapproxy_api.cache_name",
-            "deprecated": false
+            "deprecated": true,
+            "description": "This represent the layer cache name stored in mapproxy config"
           },
           "mapproxyYamlPath": {
             "propertyName": "mapcolonies.raster.mapproxy_api.mapproxy_yaml_path",
-            "deprecated": false
+            "deprecated": false,
+            "description": "This represent the location of mapproxy yaml configuration file"
           }
         }
       }

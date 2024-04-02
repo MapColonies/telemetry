@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "additionalProperties": false,
-  "title": "attributeName",
+  "title": "convention schema",
   "required": ["domain", "content"],
   "properties": {
     "domain": {
@@ -16,7 +16,7 @@
     "recursive": {
       "type": "object",
       "additionalProperties": false,
-      "title": "attributeName",
+      "title": "attribute description",
       "properties": {
         "propertyName": {
           "type": "string",

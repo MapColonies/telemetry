@@ -16,6 +16,8 @@
     "start": "npm run build && cd dist && node ./index.js",
     "clean": "rimraf dist",
     "validate": "node --import=tsimp/import scripts/validate-semantic-conventions.ts",
+    "generateAttributes": "node --import=tsimp/import scripts/build-semantic-conventions.ts",
+    "generateTypes": "json2ts schemas/attribute.schema.json > scripts/autogen.d.ts",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -65,6 +67,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.56.0",
     "husky": "^4.3.5",
+    "json-schema-to-typescript": "^13.1.2",
     "pino": "^8.14.1",
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
