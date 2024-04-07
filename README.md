@@ -55,6 +55,13 @@ counter.add(1);
 
 metrics.stop().then(() => console.log('done'));
 ```
+
+## Semantic Conventions
+#### The Semantic Conventions define a common set of (semantic) attributes which provide meaning to data when collecting, producing and consuming it
+[Based on official OpenTelemetry documentation](https://opentelemetry.io/docs/specs/semconv/)
+
+[Link to full documentation](src/semanticConventions/README.md)
+
 ## Configuration
 ### Common configuration
 | name |allowed value| default value | description
@@ -86,3 +93,4 @@ metrics.stop().then(() => console.log('done'));
 Run the command `npm run release --` to bump the version in all the files and create a changelog.
 
 For more detailed documentation and examples check: https://github.com/conventional-changelog/standard-version
+

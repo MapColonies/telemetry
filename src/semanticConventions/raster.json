@@ -6,39 +6,6 @@
     "description": "name of the domain in use",
     "deprecated": false,
     "subAttributes": {
-      "jobManagement": {
-        "propertyName": "mapcolonies.raster.job_management",
-        "kind": "jobManagerAttributes",
-        "description": "attributes related to job management services",
-        "deprecated": false,
-        "subAttributes": {
-          "jobId": {
-            "propertyName": "mapcolonies.raster.job_management.job_id",
-            "deprecated": false,
-            "description": "Type of task as stored on db (uuid)"
-          },
-          "taskId": {
-            "propertyName": "mapcolonies.raster.job_management.task_id",
-            "deprecated": false,
-            "description": "Type of task as stored on db (uuid)"
-          },
-          "jobType": {
-            "propertyName": "mapcolonies.raster.job_management.job_type",
-            "deprecated": false,
-            "description": "Type of job as stored on db (uuid)"
-          },
-          "taskType": {
-            "propertyName": "mapcolonies.raster.job_management.task_type",
-            "deprecated": false,
-            "description": "Type of task as stored on db (uuid)"
-          },
-          "serviceUrl": {
-            "propertyName": "mapcolonies.raster.job_management.service_url",
-            "deprecated": false,
-            "description": "API url of job management service"
-          }
-        }
-      },
       "catalogManager": {
         "propertyName": "mapcolonies.raster.catalog_manager",
         "kind": "catalogManagerAttributes",
@@ -88,7 +55,7 @@
         "subAttributes": {
           "cacheName": {
             "propertyName": "mapcolonies.raster.mapproxy_api.cache_name",
-            "deprecated": true,
+            "deprecated": false,
             "description": "This represent the layer cache name stored in mapproxy config"
           },
           "mapproxyYamlPath": {

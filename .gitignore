@@ -105,8 +105,12 @@ dist
 
 # reports of jest tests
 reports
-src/semanticAttributes/**/*.ts
-!src/semanticAttributes/index.ts
 
 # dev utils
 .tsimp
+
+# doc utils
+docs
+
+# semanticConventions
+src/semanticConventions/**/*.ts

@@ -17,10 +17,11 @@
       "type": "object",
       "additionalProperties": false,
       "title": "attribute description",
+      "required": ["propertyName", "description"],
       "properties": {
         "propertyName": {
           "type": "string",
-          "pattern": "^(?:[a-z0-9]+[\\._])*(?:[a-z0-9]+)$"
+          "pattern": "^mapcolonies\\.(?:[a-z0-9]+[\\._])*(?:[a-z0-9]+)$"
         },
         "kind": {
           "type": "string"
