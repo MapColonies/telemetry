@@ -79,16 +79,12 @@ npm run generate:attributes
  */
 
 /**
-* Louis the scottish straight cat
+* attributes related to fold
 * @constant
-*/
-export const SCOTTISH_FOLD_LOUIS = 'mapcolonies.scottish.fold.louis'
+* @deprecated Change to new attribute if this one was replaced 
 
-/**
-* Freddy the scottish fold cat
-* @constant
 */
-export const SCOTTISH_FOLD_FREDDY = 'mapcolonies.scottish.fold.freddy'
+export const SCOTTISH_FOLD = 'mapcolonies.scottish.fold'
 
 /**
 * David the scottish straight cat
@@ -108,16 +104,14 @@ export const SCOTTISH_STRAIGHT_JIMMY = 'mapcolonies.scottish.straight.jimmy'
 */
 export const SCOTTISH_CONVENTIONS = {
   scottish: {
-    fold: {
-      Louis: 'mapcolonies.scottish.fold.louis',
-      Freddy: 'mapcolonies.scottish.fold.freddy'
-    },
+    fold: 'mapcolonies.scottish.fold',
     straight: {
       David: 'mapcolonies.scottish.straight.david',
       Jimmy: 'mapcolonies.scottish.straight.jimmy'
     }
   }
 }
+
 ```
 <br/>
 
