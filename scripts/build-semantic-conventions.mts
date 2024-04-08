@@ -37,7 +37,7 @@ for (const file of dbFiles) {
   generateConstantTsFile(attributesArr, dataJson.domain.toUpperCase(), domainDescription, isDomainDeprecated);
 }
 
-function generateConstantTsFile(
+function generateTsFile(
   domainAttribute: ReturnType<typeof getAllPropertyNames>,
   domain: string,
   domainDescription: string,
