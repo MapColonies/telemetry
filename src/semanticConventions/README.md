@@ -7,6 +7,7 @@
 
 > [!IMPORTANT]
 > If OpenTelemetry already defined a value as part of their semantic conventions, use that and do not define a new one.
+> Define attributes should follow the Open Telemetry [semantic-convention naming concept](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/messaging/messaging-spans.md#message)
 
 ## Example
 Below are short examples of schema definition and domain.json files.
@@ -127,19 +128,17 @@ npm run build
 <br/>
 
 ## USAGE
-After publishing the new package version with a new domain - how to use from package:
 
-1.
+1. After publishing the new package version with a new domain - how to use from package.
+   
 ```bash 
 npm i @map-colonies/telemetry
  ```
 
-import
-
-2.
+2. Import in the desired module.
  ```typescript
 import { SCOTTISH_CONVENTIONS, SCOTTISH_FOLD } from '@map-colonies/telemetry/conventions';
 console.log(SCOTTISH_CONVENTIONS.scottish.straight.David)
-console.log(SCOTTISH_FOLD) // This will be markdown with strikethrough
+console.log(SCOTTISH_FOLD) // This will be marked with strikethrough
 ```
 
