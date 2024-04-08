@@ -11,52 +11,8 @@
 ## example
 Below are short examples of schema definition and domain.json files.
 
-### Some json-schema definition
-```json
-{
-  "$schema": "http://json-schema.org/draft-07/schema",
-  "type": "object",
-  "additionalProperties": false,
-  "title": "cat family hierarchy schema",
-  "required": ["clan", "content"],
-  "properties": {
-    "clan": {
-      "type": "string"
-    },
-    "content": {
-      "$ref": "#/definitions/recursive"
-    }
-  },
-  "definitions": {
-    "recursive": {
-      "type": "object",
-      "additionalProperties": false,
-      "title": "clan tree",
-      "required": ["propertyName", "description"],
-      "properties": {
-        "propertyName": {
-          "type": "string"
-        },
-        "kind": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "deprecated": {
-          "type": "boolean"
-        },
-        "subAttributes": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/recursive"
-          }
-        }
-      }
-    }
-  }
-}
-```
+> [!NOTE]
+> Schema is defined and manage inside the repo
 
 ### Convert json-schema definition into typescripts
 running CLI (json2ts)
