@@ -5,6 +5,9 @@
 * Each Domain defines its JSON file that describes the semantic conventions of the domain. The package handles the validation of the file and the generation of files for use in code.
 * Support Javascript & Typescript.
 
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
+
 :musical_note:
 [!IMPORTANT]
 If OpenTelemetry already defined a value as part of their semantic conventions, use that and do not define a new one
