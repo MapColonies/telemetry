@@ -117,7 +117,12 @@ export const SCOTTISH_CONVENTIONS = {
 
 ## CI
 
-*Validation and attributes generation occur automatically as part of pre-build stage*
+> [!IMPORTANT]
+> Validation and generation of semantic convention attributes occur automatically as part of pre-build stage.
+
+```bash
+npm run build
+```
 
 <br/>
 
