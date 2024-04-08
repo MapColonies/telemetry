@@ -3,7 +3,7 @@
 * This package goal is to provide flexible and easy to provide semantic conventions to be used for telemetry purposes across all of MapColonies services.
 * Its based on OpenTelemetry [semantic-conventions](https://opentelemetry.io/docs/specs/semconv/).
 * Each Domain define its own json file that describes the semantic conventions of the domain. The package handles the validation of the file and the generation of files for use in code.
-* Support Javascript & Typescript compatibility
+* Support Javascript & Typescript.
 
 ## example
 Below are short examples for schema definition and domain.json files.
