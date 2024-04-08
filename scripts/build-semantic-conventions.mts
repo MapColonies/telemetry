@@ -22,7 +22,7 @@ const PACKAGE_INDEX_DIR = 'src/semanticConventions/index.ts';
 const ATTRIBUTE_FILE_SUFIX = 'GENERATED_ATTRIBUTES';
 
 // read and filter all relevant static db json files per domain
-const dbFiles = readdirSync(SEMANTIC_ATTRIBUTES_DIR).filter((file) => file.endsWith('.json'));
+const dbFiles = readdirSync(SEMANTIC_ATTRIBUTES_DIR).filter((file) => path.extname(file) === '.json');
 
 // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
 console.log(`Detect ${dbFiles.length} domains db files: ${dbFiles}`);
