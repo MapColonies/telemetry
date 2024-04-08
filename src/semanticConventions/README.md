@@ -12,7 +12,11 @@
 Below are short examples of schema definition and domain.json files.
 
 > [!NOTE]
-> Schema is defined and manage inside the repo
+> Schema is defined and managed inside the repo
+> In case of changing, should re-generate the auto generated types
+> ```bash
+> npm run generate:types
+> ```
 
 ### Convert json-schema definition into typescripts
 running CLI (json2ts)
