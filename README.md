@@ -57,8 +57,8 @@ metrics.stop().then(() => console.log('done'));
 ```
 
 ## Semantic Conventions
-#### The Semantic Conventions define a common set of (semantic) attributes which provide meaning to data when collecting, producing and consuming it
-[Based on official OpenTelemetry documentation](https://opentelemetry.io/docs/specs/semconv/)
+#### The package's Semantic Conventions submodule defines a common set of (semantic) attributes which provide meaning to data when collecting, producing and consuming it.
+Based on the [official OpenTelemetry conventions](https://opentelemetry.io/docs/specs/semconv/)
 
 [Link to full documentation](src/semanticConventions/README.md)
 
