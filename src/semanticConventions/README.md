@@ -59,7 +59,7 @@ New domain creation based related to json-schema
   }
 }
 ```
-### Generate auto constants
+### Generate semantic conventions
 Run validation to assert the new domain suite the json-schema definition
 
 ```bash
