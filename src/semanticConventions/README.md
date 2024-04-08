@@ -138,8 +138,8 @@ import
 
 2.
  ```typescript
-import { SCOTTISH_CONVENTIONS, SCOTTISH_FOLD_LOUIS } from '@map-colonies/telemetry/conventions';
+import { SCOTTISH_CONVENTIONS, SCOTTISH_FOLD } from '@map-colonies/telemetry/conventions';
 console.log(SCOTTISH_CONVENTIONS.scottish.straight.David)
-console.log(SCOTTISH_FOLD_LOUIS)
+console.log(~~SCOTTISH_FOLD~~)
 ```
 
