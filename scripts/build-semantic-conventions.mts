@@ -15,7 +15,7 @@ const FILE_HEADER_MARK = `/* eslint-disable */
  * and release new compiled package to regenerate this file.
  */\n\n`;
 
-const DEPRECATION_JS_DOCSTRING = `* @deprecated and should use newer attributes\n`;
+const DEPRECATION_JS_DOCSTRING = `* @deprecated Change to new attribute if this one was replaced \n`;
 const JS_COMMENT_START = `/**`;
 const JS_COMMENT_END = `*/`;
 const PACKAGE_INDEX_DIR = 'src/semanticConventions/index.ts';
