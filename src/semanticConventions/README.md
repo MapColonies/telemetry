@@ -7,6 +7,7 @@
 
 > [!IMPORTANT]
 > If OpenTelemetry already defined a value as part of their semantic conventions, use that and do not define a new one.
+> <be>
 > Define attributes should follow the Open Telemetry [semantic-convention naming concept](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/messaging/messaging-spans.md#message)
 
 ## Example
