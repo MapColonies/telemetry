@@ -12,7 +12,7 @@
 Below are short examples of schema definition and domain.json files.
 
 > [!NOTE]
-> Schema is defined and managed inside the repo
+> Schema is defined and managed inside the repo - no part of new domain definition
 > In case of changing, should re-generate the auto generated types
 > ```bash
 > npm run generate:types
@@ -135,12 +135,12 @@ export const SCOTTISH_CONVENTIONS = {
 
 ## CI
 
-*Type generation, validation and attributes generation occur automatically as part of pre-build stage*
+*Validation and attributes generation occur automatically as part of pre-build stage*
 
 <br/>
 
 ## USAGE
-After publishing new package version with new domain - how to use from package:
+After publishing the new package version with a new domain - how to use from package:
 
 1.
 ```bash 
