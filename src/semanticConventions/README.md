@@ -6,7 +6,7 @@
 * Support Javascript & Typescript.
 
 > [!IMPORTANT]
-> If OpenTelemetry already defined a value as part of their semantic conventions, use that and do not define a new one
+> If OpenTelemetry already defined a value as part of their semantic conventions, use that and do not define a new one.
 
 ## Example
 Below are short examples of schema definition and domain.json files.
@@ -18,7 +18,7 @@ Below are short examples of schema definition and domain.json files.
 > npm run generate:types
 > ```
 
-New domain definition according to json-schema
+New domain creation based related to json-schema
 ```json
 {
   "domain": "scottish",
@@ -50,19 +50,7 @@ New domain definition according to json-schema
         "propertyName": "mapcolonies.scottish.fold",
         "kind": "straightAttributes",
         "description": "attributes related to fold",
-        "deprecated": false,
-        "subAttributes": {
-          "Freddy": {
-            "propertyName": "mapcolonies.scottish.fold.freddy",
-            "deprecated": false,
-            "description": "Freddy the scottish fold cat"
-          },
-          "Louis": {
-            "propertyName": "mapcolonies.scottish.fold.louis",
-            "deprecated": false,
-            "description": "Louis the scottish straight cat"
-          }
-        }
+        "deprecated": true
       }
     }
   }
@@ -72,13 +60,13 @@ New domain definition according to json-schema
 Run validation to assert the new domain suite the json-schema definition
 
 ```bash
-node --import=tsimp/import scripts/validate-semantic-conventions.mts
+npm run validate:attributes
 ```
 
-Run attributes generation to create new ts modules for all defined domain.json files
+Run attributes generation to create new ts modules for all defined domain.json files.
 
 ```bash
-node --import=tsimp/import scripts/build-semantic-conventions.mts
+npm run generate:attributes
 ```
 
 #### Expected new module 'SCOTTISH_GENERATED_ATTRIBUTES.ts'
