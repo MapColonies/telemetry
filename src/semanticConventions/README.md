@@ -4,8 +4,8 @@
 * Its based on OpenTelemetry [semantic-conventions](https://opentelemetry.io/docs/specs/semconv/).
 * Each Domain define its own json file that describes the semantic conventions of the domain. The package handles the validation of the file and the generation of files for use in code.
 * Support Javascript & Typescript.
-</br>
-[!IMPORTANT]
+
+[!NOTE]
 If OpenTelemetry already defined a value as part of their semantic conventions, use that and do not define a new one
 ## example
 Below are short examples for schema definition and domain.json files.
