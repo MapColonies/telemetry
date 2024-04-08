@@ -21,13 +21,13 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "release": "standard-version",
-    "prebuild": "npm run clean && npm run validate && npm run generateTypes && npm run generateAttributes",
+    "prebuild": "npm run clean && npm run validate && npm run generate:attributes",
     "build": "tsc --project tsconfig.build.json",
     "start": "npm run build && cd dist && node ./index.js",
     "clean": "rimraf dist",
     "validate": "node --import=tsimp/import scripts/validate-semantic-conventions.mts",
-    "generateAttributes": "node --import=tsimp/import scripts/build-semantic-conventions.mts",
-    "generateTypes": "json2ts schemas/attribute.schema.json > scripts/autogen.mts",
+    "generate:attributes": "node --import=tsimp/import scripts/build-semantic-conventions.mts",
+    "generate:types": "json2ts schemas/attribute.schema.json > scripts/autogen.mts",
     "prepack": "npm run build"
   },
   "repository": {
