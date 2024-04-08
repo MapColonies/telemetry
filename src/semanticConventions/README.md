@@ -140,6 +140,6 @@ import
  ```typescript
 import { SCOTTISH_CONVENTIONS, SCOTTISH_FOLD } from '@map-colonies/telemetry/conventions';
 console.log(SCOTTISH_CONVENTIONS.scottish.straight.David)
-console.log(~~SCOTTISH_FOLD~~)
+console.log(SCOTTISH_FOLD) // This will be markdown with strikethrough
 ```
 
