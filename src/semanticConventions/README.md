@@ -6,11 +6,8 @@
 * Support Javascript & Typescript.
 
 > [!IMPORTANT]
-> Key information users need to know to achieve their goal.
+> If OpenTelemetry already defined a value as part of their semantic conventions, use that and do not define a new one
 
-:musical_note:
-[!IMPORTANT]
-If OpenTelemetry already defined a value as part of their semantic conventions, use that and do not define a new one
 ## example
 Below are short examples of schema definition and domain.json files.
 
