@@ -23,10 +23,10 @@ const ATTRIBUTE_FILE_SUFIX = 'GENERATED_ATTRIBUTES';
 
 // read and filter all relevant static db json files per domain
 const dbFiles = readdirSync(SEMANTIC_ATTRIBUTES_DIR).filter((file) => path.extname(file) === '.json');
-
 console.log(`Detect ${dbFiles.length} domains db files: ${dbFiles.join(',')}`);
 
-writeFileSync(PACKAGE_INDEX_DIR, '', { flag: 'w' });
+writeFileSync(PACKAGE_INDEX_DIR, '', { flag: 'w' }); // override and create new TS file
+// Iterate each domain file in directory
 for (const file of dbFiles) {
   const data = readFileSync(path.join(SEMANTIC_ATTRIBUTES_DIR, file), { encoding: 'utf-8' });
   const dataJson = jsoncParse(data) as unknown as ConventionSchema;
@@ -36,6 +36,15 @@ for (const file of dbFiles) {
   generateTsFile(attributesArr, dataJson.domain.toUpperCase(), domainDescription, isDomainDeprecated);
 }
 
+console.log(`Complete generating TS modules and updated index.ts exporting in `);
+
+/**
+ * This method parse and write all domain's attributes to TS generated file as flat constants and canonical object
+ * @param domainAttribute Array of all related names under current domain
+ * @param domain Array - name of the domain
+ * @param domainDescription Explain the responsibility of the domain
+ * @param isDomainDeprecated Flag indicate deprecation about the domain
+ */
 function generateTsFile(
   domainAttribute: ReturnType<typeof getAllPropertyNames>,
   domain: string,
@@ -63,12 +72,22 @@ function generateTsFile(
   writeFileSync(path.join(SEMANTIC_ATTRIBUTES_DIR, `${domain}_${ATTRIBUTE_FILE_SUFIX}.ts`), full, { flag: 'a+' });
 }
 
+/**
+ * This function generate docstring per attribute
+ * @param description attribute's description to be documented
+ * @param deprecated boolean flag that indicated if the attribute should be written with deprecation notation
+ * @returns String - docstring for the attribute
+ */
 function buildDocString(description: string, deprecated: boolean | undefined): string {
   const deprecatedStr = deprecated !== undefined && deprecated ? `${DEPRECATION_JS_DOCSTRING}\n` : '';
   const docStr = `${JS_COMMENT_START}\n* ${description}\n${'* @constant'}\n${deprecatedStr}${JS_COMMENT_END}`;
   return docStr;
 }
 
+/**
+ * Add export declaration to new TS file in index.ts of the subdirectory
+ * @param fileDir
+ */
 function addToIndexFile(fileDir: string): void {
   const exportStr = `export * from './${fileDir}'\n`;
   writeFileSync(PACKAGE_INDEX_DIR, exportStr, { flag: 'a+' });
