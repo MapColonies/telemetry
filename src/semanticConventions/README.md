@@ -1,8 +1,7 @@
-# Telemetry
-## Semantic Conventions
-* This package goal is to provide flexible and easy to provide semantic conventions to be used for telemetry purposes across all of MapColonies services.
+# Telemetry Semantic Conventions
+* This submodule goal is to provide flexible and easy to provide semantic conventions to be used for telemetry purposes across all of MapColonies services.
 * It's based on OpenTelemetry [semantic-conventions](https://opentelemetry.io/docs/specs/semconv/).
-* Each Domain defines its JSON file that describes the semantic conventions of the domain. The package handles the validation of the file and the generation of files for use in code.
+* Each Domain defines its JSON file that describes the semantic conventions of the domain. The submodule handles the validation of the file and the generation of files for use in code.
 * Support Javascript & Typescript.
 
 > [!IMPORTANT]
@@ -11,17 +10,30 @@
 > [!IMPORTANT]
 > Attributes should follow the Open Telemetry [semantic-convention naming concept](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/messaging/messaging-spans.md#message)
 
-## Example
-Below are short examples of schema definition and domain.json files.
+## USAGE
 
-> [!NOTE]
-> Schema is defined and managed inside the repo - no part of new domain definition
-> In case of changing, should re-generate the auto generated types
-> ```bash
-> npm run generate:types
-> ```
+1. Install the package using the following command:
+   
+```bash 
+npm i @map-colonies/telemetry
+ ```
 
-New domain creation based related to json-schema
+2. Import the package and the use the conventions as needed.
+ ```typescript
+import { SCOTTISH_CONVENTIONS, SCOTTISH_FOLD } from '@map-colonies/telemetry/conventions';
+
+console.log(SCOTTISH_CONVENTIONS.scottish.straight.David)
+console.log(SCOTTISH_FOLD) // This will be marked with strikethrough because it's marked as deprecated
+```
+
+> [!IMPORTANT]
+> If when using the package you get any errors of missing type definitions, or unable to import the submodule `conventions`, you should make sure both the `module` and `moduleResolution` options of your `tsconfig` / `jsconfig` are set to `NodeNext`. [For more information](https://www.typescriptlang.org/tsconfig#moduleResolution).
+
+## Domain creation
+Below is a short example of creation of a new semantic attribute domain by creating a the `domain.json` file and generating the attributes.
+
+
+1. Create a new file in the `semanticConventions` direcotry. The file must be a `json` file.
 ```json
 {
   "domain": "scottish",
@@ -59,20 +71,23 @@ New domain creation based related to json-schema
   }
 }
 ```
-### Generate semantic conventions
-Run validation to assert the new domain suite the json-schema definition
+
+2. 
+Run the validations to make sure the file created is valid.
 
 ```bash
 npm run validate:attributes
 ```
 
+3. 
 Run attributes generation to create new ts modules for all defined domain.json files.
 
 ```bash
 npm run generate:attributes
 ```
 
-#### Expected new module 'SCOTTISH_GENERATED_ATTRIBUTES.ts'
+4. Check the created TypeScript files to make sure they are as you desired. 
+They should look like this:
 ```typescript
 /* eslint-disable */
 /**
@@ -114,33 +129,18 @@ export const SCOTTISH_CONVENTIONS = {
     }
   }
 }
-
 ```
-<br/>
 
-## CI
+## Development
 
+The Schema used to validate the json files and to create TypeScript types for the script usage, is defined and managed inside the repo - `schemas/attribute.schema.json`.
+
+The schema files are have autocomplete support in VsCode. To change the schema and file associations check the `.vscode/settings.json`.
 > [!IMPORTANT]
-> Validation and generation of semantic convention attributes occur automatically as part of pre-build stage.
+> After any change to the schema, you MUST re-generate the types using the following command:
+> ```bash
+> npm run generate:types
+> ```
 
-```bash
-npm run build
-```
-
-<br/>
-
-## USAGE
-
-1. After publishing the new package version with a new domain - how to use from package.
-   
-```bash 
-npm i @map-colonies/telemetry
- ```
-
-2. Import in the desired module.
- ```typescript
-import { SCOTTISH_CONVENTIONS, SCOTTISH_FOLD } from '@map-colonies/telemetry/conventions';
-console.log(SCOTTISH_CONVENTIONS.scottish.straight.David)
-console.log(SCOTTISH_FOLD) // This will be marked with strikethrough
-```
+All the semantic convention scripts run before the build process of the package, as their only output are TypeScript files that are transpiled as part of the larger build process into javascript.
 
