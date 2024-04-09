@@ -72,15 +72,13 @@ Below is a short example of creation of a new semantic attribute domain by creat
 }
 ```
 
-2. 
-Run the validations to make sure the file created is valid.
+2. Run the validations to make sure the file created is valid.
 
 ```bash
 npm run validate:attributes
 ```
 
-3. 
-Run attributes generation to create new ts modules for all defined domain.json files.
+3. Run attributes generation to create new ts modules for all defined domain.json files.
 
 ```bash
 npm run generate:attributes
