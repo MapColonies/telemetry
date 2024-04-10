@@ -18,7 +18,7 @@
 npm i @map-colonies/telemetry
  ```
 
-2. Import the package and the use the conventions as needed.
+2. Import the package and then use the conventions as needed.
  ```typescript
 import { SCOTTISH_CONVENTIONS, SCOTTISH_FOLD } from '@map-colonies/telemetry/conventions';
 
