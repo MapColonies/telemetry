@@ -121,11 +121,10 @@ export const SCOTTISH_STRAIGHT_JIMMY = 'mapcolonies.scottish.straight.jimmy';
 export const SCOTTISH_CONVENTIONS = {
   scottish: {
     /**
-* attributes related to fold 😿
-* @constant
-* @deprecated Change to new attribute if this one was replaced 
-
-*/
+    * attributes related to fold 😿
+    * @constant
+    * @deprecated Change to new attribute if this one was replaced 
+    */
     fold: 'mapcolonies.scottish.fold',
     straight: {
       /**
