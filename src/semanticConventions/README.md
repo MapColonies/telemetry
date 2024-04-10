@@ -5,7 +5,7 @@
 * Supports Javascript & Typescript.
 
 > [!IMPORTANT]
-> If OpenTelemetry already defined a value as part of their semantic conventions, use that and do not define a new one.
+> If OpenTelemetry already defines a value as part of their [semantic conventions](https://opentelemetry.io/docs/specs/semconv/), use that and do not define a new one.
 
 > [!IMPORTANT]
 > Attributes should follow the Open Telemetry [semantic-convention naming concept](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/messaging/messaging-spans.md#message)
