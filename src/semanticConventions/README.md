@@ -30,10 +30,10 @@ console.log(SCOTTISH_FOLD) // This will be marked with strikethrough because it'
 > If you get any errors of missing type definitions while using the package, or you are unable to import the submodule `conventions`, you should make sure both the `module` and `moduleResolution` options of your `tsconfig` / `jsconfig` are set to `NodeNext`. [For more information](https://www.typescriptlang.org/tsconfig#moduleResolution).
 
 ## Domain creation
-Below is a short example of creation of a new semantic attribute domain by creating a the `domain.json` file and generating the attributes.
+Below is a short example for creating of a new semantic attribute domain by creating the `domain.json` file and generating it's attributes.
 
 
-1. Create a new file in the `semanticConventions` direcotry. The file must be a `json` file.
+1. Create a new file in the `semanticConventions` direcotry (The file must be a `json` file).
 ```json
 {
   "domain": "scottish",
@@ -72,7 +72,7 @@ Below is a short example of creation of a new semantic attribute domain by creat
 }
 ```
 
-2. Run the validations to make sure the file created is valid.
+2. Run the validations to make sure the created file is valid.
 
 ```bash
 npm run validate:attributes
@@ -84,7 +84,7 @@ npm run validate:attributes
 npm run generate:attributes
 ```
 
-4. Check the created TypeScript files to make sure they are as you desired. 
+4. Check the created TypeScript files to make sure they are as you intended. 
 They should look like this:
 ```typescript
 /* eslint-disable */
@@ -131,11 +131,11 @@ export const SCOTTISH_CONVENTIONS = {
 
 ## Development
 
-The Schema used to validate the json files and to create TypeScript types for the script usage, is defined and managed inside the repo - `schemas/attribute.schema.json`.
+The Schema used to validate the json files and to create the TypeScript types for the script usage is defined and managed inside the repo - `schemas/attribute.schema.json`.
 
-The schema files are have autocomplete support in VsCode. To change the schema and file associations check the `.vscode/settings.json`.
+The schema files have autocomplete support in VsCode. To change the schema and file associations check the `.vscode/settings.json`.
 > [!IMPORTANT]
-> After any change to the schema, you MUST re-generate the types using the following command:
+> After making any changes to a schema, you MUST re-generate it's types using the following command:
 > ```bash
 > npm run generate:types
 > ```
