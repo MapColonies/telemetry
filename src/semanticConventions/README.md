@@ -1,7 +1,7 @@
 # Telemetry Semantic Conventions
 * This submodule's goal is to provide a flexible and easy way to allow semantic conventions to be used for telemetry purposes across all of MapColonies services.
 * It's based on OpenTelemetry [semantic-conventions](https://opentelemetry.io/docs/specs/semconv/).
-* Each Domain defines its JSON file that describes the semantic conventions of the domain. The submodule handles the validation of the file and the generation of files for use in code.
+* Each Domain defines its JSON file that describes the semantic conventions of the domain. The submodule handles the validation of the file and generates `TS` files for use in code.
 * Support Javascript & Typescript.
 
 > [!IMPORTANT]
