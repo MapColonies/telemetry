@@ -27,7 +27,7 @@ console.log(SCOTTISH_FOLD) // This will be marked with strikethrough because it'
 ```
 
 > [!IMPORTANT]
-> If when using the package you get any errors of missing type definitions, or unable to import the submodule `conventions`, you should make sure both the `module` and `moduleResolution` options of your `tsconfig` / `jsconfig` are set to `NodeNext`. [For more information](https://www.typescriptlang.org/tsconfig#moduleResolution).
+> If you get any errors of missing type definitions while using the package, or you are unable to import the submodule `conventions`, you should make sure both the `module` and `moduleResolution` options of your `tsconfig` / `jsconfig` are set to `NodeNext`. [For more information](https://www.typescriptlang.org/tsconfig#moduleResolution).
 
 ## Domain creation
 Below is a short example of creation of a new semantic attribute domain by creating a the `domain.json` file and generating the attributes.
