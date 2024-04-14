@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/MapColonies/telemetry/compare/v5.4.0...v6.0.0) (2024-04-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* wip first naive json db semantic-conv (#63)
+
+### Features
+
+* wip first naive json db semantic-conv ([#63](https://github.com/MapColonies/telemetry/issues/63)) ([646f441](https://github.com/MapColonies/telemetry/commit/646f4416b34c69eeb66307d9cc0508335c25654b))
+
 ## [5.4.0](https://github.com/MapColonies/telemetry/compare/v5.3.1...v5.4.0) (2024-03-21)
 
 
