@@ -105,3 +105,12 @@ dist
 
 # reports of jest tests
 reports
+
+# dev utils
+.tsimp
+
+# doc utils
+docs
+
+# semanticConventions
+src/semanticConventions/**/*.ts

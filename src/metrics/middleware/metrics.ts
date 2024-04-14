@@ -1,6 +1,6 @@
 import { hostname as osHostname } from 'os';
 import { Registry, collectDefaultMetrics, Gauge, register } from 'prom-client';
-import * as promBundle from 'express-prom-bundle';
+import promBundle from 'express-prom-bundle';
 import * as express from 'express';
 import { loadPackageInfo } from '../../common/packageInfoLoader';
 import { deconstructSemver } from '../../common/util';

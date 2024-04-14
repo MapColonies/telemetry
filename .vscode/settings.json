@@ -1,0 +1,12 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["src/semanticConventions/**/*.json"],
+      "url": "./schemas/attribute.schema.json"
+    }
+  ],
+  "files.associations": {
+    "**/src/semanticAttributes/**/*.json": "jsonc"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
