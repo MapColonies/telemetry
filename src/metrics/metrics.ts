@@ -7,13 +7,25 @@ import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions'
 import { TelemetryBase } from '../common/interfaces';
 import { getMetricsConfig, MetricsConfig } from './config';
 
+/**
+ * Represents a metrics class that provides telemetry functionality.
+ */
 export class Metrics implements TelemetryBase<void> {
   private provider?: MeterProvider;
   private readonly config: MetricsConfig;
+
+  /**
+   * Creates an instance of the Metrics class.
+   * @param attributes - Optional attributes to be associated with the metrics.
+   * @param debug - Specifies whether to enable debug mode for the metrics.
+   */
   public constructor(private readonly attributes?: api.Attributes, private readonly debug?: boolean) {
     this.config = getMetricsConfig();
   }
 
+  /**
+   * Starts the metrics collection and exporting process.
+   */
   public start(): void {
     if (!this.config.isEnabled) {
       return;
@@ -43,6 +55,10 @@ export class Metrics implements TelemetryBase<void> {
     metrics.setGlobalMeterProvider(this.provider);
   }
 
+  /**
+   * Stops the metrics collection and exporting process.
+   * @returns A promise that resolves when the metrics provider is successfully shutdown.
+   */
   public async stop(): Promise<void> {
     await this.provider?.shutdown();
   }

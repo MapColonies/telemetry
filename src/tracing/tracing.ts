@@ -10,9 +10,20 @@ import * as api from '@opentelemetry/api';
 import { TelemetryBase } from '../common/interfaces';
 import { getTracingConfig, TracingConfig } from './config';
 
+/**
+ * Represents a Tracing instance that provides telemetry functionality.
+ */
 export class Tracing implements TelemetryBase<void> {
   private provider?: NodeTracerProvider;
   private readonly config: TracingConfig;
+
+  /**
+   * Creates a new instance of the Tracing class.
+   * @param instrumentations Optional array of instrumentations.
+   * @param autoInstrumentationsConfigMap Optional map of auto-instrumentation configurations.
+   * @param attributes Optional attributes to be added to the resource.
+   * @param debug Optional flag to enable debug mode.
+   */
   public constructor(
     private readonly instrumentations?: InstrumentationOption[],
     private readonly autoInstrumentationsConfigMap?: InstrumentationConfigMap,
@@ -22,6 +33,9 @@ export class Tracing implements TelemetryBase<void> {
     this.config = getTracingConfig();
   }
 
+  /**
+   * Starts the tracing functionality.
+   */
   public start(): void {
     if (!this.config.isEnabled) {
       return;
@@ -62,6 +76,10 @@ export class Tracing implements TelemetryBase<void> {
     });
   }
 
+  /**
+   * Stops the tracing functionality.
+   * @returns A promise that resolves when the tracing is stopped.
+   */
   public async stop(): Promise<void> {
     await this.provider?.shutdown();
   }
