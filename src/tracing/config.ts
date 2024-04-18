@@ -8,6 +8,10 @@ export type TracingConfig =
     }
   | ({ isEnabled: true; url: string; traceRatio: number } & CommonConfig);
 
+/**
+ * Retrieves the tracing configuration.
+ * @returns The tracing configuration object.
+ */
 export const getTracingConfig = (): TracingConfig => {
   const commonConfig = getCommonConfig();
 

@@ -4,15 +4,37 @@ import { getTracingConfig } from '../config';
 
 const tracingConfig = getTracingConfig();
 
+/**
+ * Binds a parent span to a function, ensuring that the function executes within the context of the span.
+ *
+ * @template T - The type of the function being bound.
+ * @param parentSpan - The parent span to bind.
+ * @param func - The function to bind.
+ * @returns The bound function.
+ */
 export const contexBindingHelper = <T>(parentSpan: Span, func: T): T => {
   const ctx = api.trace.setSpan(api.context.active(), parentSpan);
   return api.context.bind(ctx, func);
 };
 
+/**
+ * Creates a function that checks if the incoming request URL should be ignored based on the provided regular expressions.
+ * The function should be used for configuring the http instrumentation.
+ * @param urlsToIgnore An array of regular expressions to match against the request URL.
+ * @returns A function that takes an incoming request and returns a boolean indicating whether the request URL should be ignored.
+ */
 export const ignoreIncomingRequestUrl = (urlsToIgnore: RegExp[]): ((request: IncomingMessage) => boolean) => {
   return (request): boolean => urlsToIgnore.some((regex) => regex.test(request.url ?? ''));
 };
 
+/**
+ * Returns a function that checks if the outgoing request path should be ignored.
+ * The function should be used for configuring the http instrumentation.
+ * The function takes an array of regular expressions and returns a boolean value.
+ *
+ * @param pathsToIgnore - An array of regular expressions representing the paths to ignore.
+ * @returns A function that takes a request and returns a boolean indicating whether the request path should be ignored.
+ */
 export const ignoreOutgoingRequestPath = (pathsToIgnore: RegExp[]): ((request: RequestOptions) => boolean) => {
   return (request): boolean => pathsToIgnore.some((regex) => regex.test(request.path ?? ''));
 };

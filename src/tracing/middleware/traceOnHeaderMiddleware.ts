@@ -4,6 +4,10 @@ import { Handler } from 'express';
 const VERSION = '00';
 const RADIX = 16;
 
+/**
+ * Returns a express middleware handler that sets the trace context header.
+ * @returns The middleware handler.
+ */
 export const getTraceContexHeaderMiddleware: () => Handler = () => {
   const traceContexHeaderMiddleware: Handler = (req, res, next): void => {
     const spanContext = trace.getSpanContext(context.active());

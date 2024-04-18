@@ -2,6 +2,12 @@ import { trace, context, isSpanContextValid } from '@opentelemetry/api';
 
 const HEXADECIMAL_BASE = 16;
 
+/**
+ * Returns a function that creates an OpenTelemetry mixin object for pino logger.
+ * The function lets you add trace information to the log record object.
+ * The mixin object contains trace information such as trace ID, span ID, and trace flags.
+ * @returns A function that takes in a mergeObject and level, and returns an object with trace information.
+ */
 /* eslint-disable @typescript-eslint/ban-types */
 export function getOtelMixin(): (mergeObject: object, level: number) => object {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

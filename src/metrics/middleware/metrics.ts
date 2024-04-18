@@ -5,14 +5,42 @@ import * as express from 'express';
 import { loadPackageInfo } from '../../common/packageInfoLoader';
 import { deconstructSemver } from '../../common/util';
 
+/**
+ * Options for configuring metrics middleware.
+ */
 interface Opts {
+  /**
+   * The Prometheus registry to use for the metrics.
+   */
   registry: Registry;
+  /**
+   * Whether to collect node metrics.
+   */
   collectNodeMetrics: boolean;
+  /**
+   * Whether to collect service version metrics.
+   */
   collectServiceVersion: boolean;
+  /**
+   * The prefix for the metrics.
+   * e.g. 'my_prefix_my_metric'
+   */
   prefix: string;
+  /**
+   * The labels to attach to the metrics.
+   */
   labels: Record<string, string>;
 }
 
+/**
+ * Express middleware that returns the metrics collected by the registry.
+ *
+ * @param registry - The metrics registry.
+ * @param shouldCollectDefaultMetrics - Indicates whether to collect default metrics. Default is `true`.
+ * @param defaultMetricsPrefix - The prefix to be added to default metrics.
+ * @param defaultMetricsLabels - The labels to be added to default metrics.
+ * @returns The Express request handler function.
+ */
 export function metricsMiddleware(
   registry: Registry,
   shouldCollectDefaultMetrics = true,
@@ -54,6 +82,12 @@ export function defaultMetricsMiddleware(prefix?: string, labels?: Record<string
   };
 }
 
+/**
+ * Collects metrics for Express middleware.
+ *
+ * @param options - Optional configuration options for the middleware.
+ * @returns The Express middleware function that collects metrics.
+ */
 export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBundle.Middleware {
   const pacakgeInfo = loadPackageInfo();
   const defaultOpts = {

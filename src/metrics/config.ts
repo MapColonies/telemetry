@@ -12,6 +12,10 @@ export type MetricsConfig =
       sendInterval: number;
     } & CommonConfig);
 
+/**
+ * Retrieves the metrics configuration.
+ * @returns The metrics configuration object.
+ */
 export const getMetricsConfig = (): MetricsConfig => {
   const isEnabled = env.get('TELEMETRY_METRICS_ENABLED').default('false').asBool();
 
