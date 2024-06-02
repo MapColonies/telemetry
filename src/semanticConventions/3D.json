@@ -3,7 +3,7 @@
   "content": {
     "propertyName": "mapcolonies.3d",
     "kind": "domain",
-    "description": "name of the domain in use",
+    "description": "Name of the domain in use",
     "deprecated": false,
     "subAttributes": {
       "catalogManager": {
@@ -15,7 +15,7 @@
           "catalogId": {
             "propertyName": "mapcolonies.3d.catalog_manager.catalog_id",
             "deprecated": false,
-            "description": "layer Id as stored on 3D catalog db"
+            "description": "Model ID as stored on 3D catalog DB"
           }
         }
       }
