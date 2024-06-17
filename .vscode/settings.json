@@ -6,7 +6,7 @@
     }
   ],
   "files.associations": {
-    "**/src/semanticAttributes/**/*.json": "jsonc"
+    "**/src/semanticConventions/**/*.json": "jsonc"
   },
   "typescript.tsdk": "node_modules/typescript/lib"
 }
