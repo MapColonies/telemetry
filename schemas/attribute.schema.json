@@ -6,7 +6,8 @@
   "required": ["domain", "content"],
   "properties": {
     "domain": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[A-Za-z]"
     },
     "content": {
       "$ref": "#/definitions/recursive"
