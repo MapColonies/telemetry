@@ -69,7 +69,7 @@ jobs:
             ```json
             {
               "dependencies": {
-                  "@map-colonies/schemas": "https://ghatmpstorage.blob.core.windows.net/npm-packages/schemas-${{ github.sha }}.tgz"
+                  "@map-colonies/telemetry": "https://ghatmpstorage.blob.core.windows.net/npm-packages/telemetry-${{ github.sha }}.tgz"
               }
             }
             ```
