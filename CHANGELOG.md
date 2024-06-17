@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://github.com/MapColonies/telemetry/compare/v6.0.0...v6.1.0) (2024-06-17)
+
+
+### Features
+
+* add 3D semantic conventions ([05bedc2](https://github.com/MapColonies/telemetry/commit/05bedc2100fb1cc2bd10c78e68f7c8a67d0b1a78))
+* validate also the domain ([9281ae5](https://github.com/MapColonies/telemetry/commit/9281ae5e5be7ecd82d50d26d78b8e5563fbc6684))
+
+
+### Bug Fixes
+
+* rename src folder in settings.json ([#66](https://github.com/MapColonies/telemetry/issues/66)) ([e6690ed](https://github.com/MapColonies/telemetry/commit/e6690eded50872977aa3d922c80fc92ace1aab6c))
+
 ## [6.0.0](https://github.com/MapColonies/telemetry/compare/v5.4.0...v6.0.0) (2024-04-14)
 
 
