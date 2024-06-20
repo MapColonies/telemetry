@@ -16,7 +16,7 @@
           "jobId": {
             "propertyName": "mapcolonies.infra.job_management.job_id",
             "deprecated": false,
-            "description": "Type of task as stored on db (uuid)"
+            "description": "Type of job as stored on db (uuid)"
           },
           "taskId": {
             "propertyName": "mapcolonies.infra.job_management.task_id",
@@ -37,6 +37,16 @@
             "propertyName": "mapcolonies.infra.job_management.service_url",
             "deprecated": false,
             "description": "API url of job management service"
+          },
+          "taskIds": {
+            "propertyName": "mapcolonies.infra.job_management.task_ids",
+            "deprecated": false,
+            "description": "Array of tasks (uuid array)"
+          },
+          "status": {
+            "propertyName": "mapcolonies.infra.job_management.status",
+            "deprecated": false,
+            "description": "Status of job as stored on db (COMPLETED/ IN-PROGRESS/ PENDING)"
           }
         }
       }
