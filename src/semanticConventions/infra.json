@@ -46,7 +46,7 @@
           "status": {
             "propertyName": "mapcolonies.infra.job_management.status",
             "deprecated": false,
-            "description": "Status of job as stored on db (COMPLETED/ IN-PROGRESS/ PENDING)"
+            "description": "Status of job as stored on db (COMPLETED/ IN-PROGRESS/ PENDING, etc.)"
           }
         }
       }
