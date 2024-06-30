@@ -2,6 +2,13 @@ import * as env from 'env-var';
 import { CommonConfig, getCommonConfig } from '../common/config';
 
 const DEFAULT_URL = 'http://localhost:4318/v1/traces';
+
+interface TracingConfigInput extends Partial<CommonConfig> {
+  isEnabled?: boolean;
+  url?: string;
+  traceRatio?: number;
+}
+
 export type TracingConfig =
   | {
       isEnabled: false;
@@ -12,7 +19,7 @@ export type TracingConfig =
  * Retrieves the tracing configuration.
  * @returns The tracing configuration object.
  */
-export const getTracingConfig = (): TracingConfig => {
+export function getTracingConfig(options: TracingConfigInput): TracingConfig {
   const commonConfig = getCommonConfig();
 
   const isEnabled = env.get('TELEMETRY_TRACING_ENABLED').default('false').asBool();
@@ -33,4 +40,4 @@ export const getTracingConfig = (): TracingConfig => {
     isEnabled: true,
     traceRatio,
   };
-};
+}

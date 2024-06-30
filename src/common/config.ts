@@ -10,9 +10,9 @@ interface CommonConfig {
 
 let commonConfig: CommonConfig | undefined;
 
-const getCommonConfig = (): CommonConfig => {
-  if (commonConfig) {
-    return commonConfig;
+function getCommonConfig(): CommonConfig {
+  if (!commonConfig) {
+    throw new Error('Common configuration has not been set');
   }
 
   const packageConfig = loadPackageInfo();
@@ -21,7 +21,8 @@ const getCommonConfig = (): CommonConfig => {
     hostname: env.get('TELEMETRY_HOST_NAME').asString() ?? hostname(),
     version: env.get('TELEMETRY_SERVICE_VERSION').asString() ?? packageConfig.version,
   };
+
   return commonConfig;
-};
+}
 
 export { CommonConfig, getCommonConfig };
