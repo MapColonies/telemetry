@@ -1,6 +1,6 @@
 {
   "name": "@map-colonies/telemetry",
-  "version": "6.1.0",
+  "version": "6.2.1",
   "description": "Package for everything opentelemetry related in map colonies",
   "main": "./dist/index.js",
   "exports": {
@@ -54,6 +54,7 @@
   ],
   "homepage": "https://github.com/MapColonies/telemetry#readme",
   "dependencies": {
+    "@apideck/better-ajv-errors": "^0.3.6",
     "@map-colonies/read-pkg": "^0.0.1",
     "@opentelemetry/api": "^1.7.0",
     "@opentelemetry/auto-instrumentations-node": "^0.40.2",
@@ -63,8 +64,8 @@
     "@opentelemetry/sdk-node": "^0.46.0",
     "@opentelemetry/sdk-trace-base": "^1.19.0",
     "@opentelemetry/sdk-trace-node": "^1.19.0",
-    "deepmerge": "^4.3.1",
-    "env-var": "^7.1.1",
+    "ajv": "^8.16.0",
+    "ajv-formats": "^3.0.1",
     "express-prom-bundle": "^6.6.0",
     "prom-client": "^15.1.0"
   },
@@ -77,7 +78,6 @@
     "@types/express": "^4.17.12",
     "@types/faker": "^5.5.3",
     "@types/node": "^14.14.12",
-    "ajv": "^8.16.0",
     "change-case-all": "^2.1.0",
     "comment-json": "^4.2.3",
     "commitlint": "^11.0.0",

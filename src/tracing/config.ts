@@ -1,43 +1,65 @@
-import * as env from 'env-var';
-import { CommonConfig, getCommonConfig } from '../common/config';
+import type { JSONSchemaType } from 'ajv';
+import { CommonConfig, getCommonConfig, mergeAndValidateConfig } from '../common/config';
 
 const DEFAULT_URL = 'http://localhost:4318/v1/traces';
 
-interface TracingConfigInput extends Partial<CommonConfig> {
-  isEnabled?: boolean;
-  url?: string;
-  traceRatio?: number;
+/**
+ * Represents the configuration options for tracing.
+ */
+interface BaseTracingConfig {
+  /**
+   * Specifies whether tracing is enabled.
+   */
+  isEnabled: boolean;
+  /**
+   * The URL to an HTTP OTLP endpoint to send the traces to.
+   */
+  url: string;
+  /**
+   * The ratio of traces to sample.
+   */
+  traceRatio: number;
+  /**
+   * Specifies whether to enable debug mode for tracing.
+   * Debug mode will enable the opentelemetry debug log and log traces to the console.
+   */
+  debug: boolean;
 }
 
-export type TracingConfig =
-  | {
-      isEnabled: false;
-    }
-  | ({ isEnabled: true; url: string; traceRatio: number } & CommonConfig);
+type TracingConfig = BaseTracingConfig & CommonConfig;
+
+const tracingConfigSchema: JSONSchemaType<BaseTracingConfig> = {
+  type: 'object',
+  properties: {
+    isEnabled: { type: 'boolean', default: false },
+    url: { type: 'string', default: DEFAULT_URL, format: 'uri', pattern: '^http://|^https://' },
+    traceRatio: { type: 'number', default: 1, minimum: 0, maximum: 1 },
+    debug: { type: 'boolean', default: false },
+  },
+  required: ['isEnabled'],
+};
+
+const tracingConfigEnv: Partial<Record<keyof BaseTracingConfig, string>> = {
+  isEnabled: process.env.TELEMETRY_TRACING_ENABLED,
+  url: process.env.TELEMETRY_TRACING_URL,
+  traceRatio: process.env.TELEMETRY_TRACING_RATIO,
+  debug: process.env.TELEMETRY_TRACING_DEBUG,
+};
 
 /**
  * Retrieves the tracing configuration.
  * @returns The tracing configuration object.
  */
-export function getTracingConfig(options: TracingConfigInput): TracingConfig {
-  const commonConfig = getCommonConfig();
+function getTracingConfig(options: Partial<BaseTracingConfig> & Partial<CommonConfig> = {}): TracingConfig {
+  const { traceRatio, isEnabled, url, debug, ...commonConfigInput } = options;
+  const commonConfig = getCommonConfig(commonConfigInput);
 
-  const isEnabled = env.get('TELEMETRY_TRACING_ENABLED').default('false').asBool();
-
-  if (!isEnabled) {
-    return { isEnabled: false, ...commonConfig };
-  }
-
-  const traceRatio = env.get('TELEMETRY_TRACING_RATIO').default(1).asFloat();
-
-  if (traceRatio < 0 && traceRatio > 1) {
-    throw new Error('trace ratio should be between 0 and 1');
-  }
+  const tracingConfig = mergeAndValidateConfig<BaseTracingConfig>({ traceRatio, isEnabled, url, debug }, tracingConfigEnv, tracingConfigSchema);
 
   return {
     ...commonConfig,
-    url: env.get('TELEMETRY_TRACING_URL').asUrlString() ?? DEFAULT_URL,
-    isEnabled: true,
-    traceRatio,
+    ...tracingConfig,
   };
 }
+
+export { TracingConfig, getTracingConfig };
