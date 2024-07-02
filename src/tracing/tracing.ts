@@ -7,8 +7,33 @@ import { InstrumentationOption, registerInstrumentations } from '@opentelemetry/
 import { Resource } from '@opentelemetry/resources';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 import * as api from '@opentelemetry/api';
+import { Prettify } from '../common/types';
 import { TelemetryBase } from '../common/interfaces';
 import { getTracingConfig, TracingConfig } from './config';
+
+/**
+ * The options to configure the tracing functionality.
+ */
+export type TracingOptions = Prettify<
+  Partial<TracingConfig> & {
+    /**
+     * Optional array of instrumentations.
+     */
+    instrumentations?: InstrumentationOption[];
+    /**
+     * Optional map of auto-instrumentation configurations.
+     */
+    autoInstrumentationsConfigMap?: InstrumentationConfigMap;
+    /**
+     * Optional attributes to be added to the resource.
+     */
+    attributes?: api.Attributes;
+    /**
+     * Optional flag to enable debug mode.
+     */
+    debug?: boolean;
+  }
+>;
 
 /**
  * Represents a Tracing instance that provides telemetry functionality.
@@ -16,21 +41,20 @@ import { getTracingConfig, TracingConfig } from './config';
 export class Tracing implements TelemetryBase<void> {
   private provider?: NodeTracerProvider;
   private readonly config: TracingConfig;
+  private readonly instrumentations?: InstrumentationOption[];
+  private readonly autoInstrumentationsConfigMap?: InstrumentationConfigMap;
+  private readonly attributes?: api.Attributes;
 
   /**
    * Creates a new instance of the Tracing class.
-   * @param instrumentations Optional array of instrumentations.
-   * @param autoInstrumentationsConfigMap Optional map of auto-instrumentation configurations.
-   * @param attributes Optional attributes to be added to the resource.
-   * @param debug Optional flag to enable debug mode.
+   * @param options - The options to configure the tracing functionality.
    */
-  public constructor(
-    private readonly instrumentations?: InstrumentationOption[],
-    private readonly autoInstrumentationsConfigMap?: InstrumentationConfigMap,
-    private readonly attributes?: api.Attributes,
-    private readonly debug?: boolean
-  ) {
-    this.config = getTracingConfig();
+  public constructor(options: TracingOptions = {}) {
+    const { instrumentations, autoInstrumentationsConfigMap, attributes, ...config } = options;
+    this.config = getTracingConfig(config);
+    this.instrumentations = options.instrumentations;
+    this.autoInstrumentationsConfigMap = autoInstrumentationsConfigMap;
+    this.attributes = attributes;
   }
 
   /**
@@ -58,7 +82,7 @@ export class Tracing implements TelemetryBase<void> {
 
     this.provider.addSpanProcessor(new BatchSpanProcessor(exporter));
 
-    if (this.debug === true) {
+    if (this.config.debug) {
       api.diag.setLogger(new api.DiagConsoleLogger(), api.DiagLogLevel.ALL);
       this.provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
     }

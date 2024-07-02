@@ -11,6 +11,10 @@
     "./conventions": {
       "default": "./dist/semanticConventions/index.js",
       "types": "./dist/semanticConventions/index.d.ts"
+    },
+    "./prom-metrics": {
+      "default": "./dist/metrics/middleware/metrics.js",
+      "types": "./dist/metrics/middleware/metrics.d.ts"
     }
   },
   "scripts": {
@@ -50,6 +54,7 @@
   ],
   "homepage": "https://github.com/MapColonies/telemetry#readme",
   "dependencies": {
+    "@apideck/better-ajv-errors": "^0.3.6",
     "@map-colonies/read-pkg": "^0.0.1",
     "@opentelemetry/api": "^1.7.0",
     "@opentelemetry/auto-instrumentations-node": "^0.40.2",
@@ -59,7 +64,8 @@
     "@opentelemetry/sdk-node": "^0.46.0",
     "@opentelemetry/sdk-trace-base": "^1.19.0",
     "@opentelemetry/sdk-trace-node": "^1.19.0",
-    "env-var": "^7.1.1",
+    "ajv": "^8.16.0",
+    "ajv-formats": "^3.0.1",
     "express-prom-bundle": "^6.6.0",
     "prom-client": "^15.1.0"
   },
@@ -72,7 +78,6 @@
     "@types/express": "^4.17.12",
     "@types/faker": "^5.5.3",
     "@types/node": "^14.14.12",
-    "ajv": "^8.12.0",
     "change-case-all": "^2.1.0",
     "comment-json": "^4.2.3",
     "commitlint": "^11.0.0",
@@ -87,7 +92,7 @@
     "standard-version": "^9.0.0",
     "ts-node": "^9.1.1",
     "tsimp": "2.0.11",
-    "typescript": "^5.3.3",
-    "typedoc": "^0.25.13"
+    "typedoc": "^0.25.13",
+    "typescript": "^5.3.3"
   }
 }
