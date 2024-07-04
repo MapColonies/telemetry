@@ -21,7 +21,7 @@ interface CommonConfig {
    * The version of the service to put as attribute.
    * By default will be read from the package.json file.
    */
-  version: string;
+  serviceVersion: string;
 }
 
 const ajv = addFormats(
@@ -71,15 +71,15 @@ const commonConfigSchema: JSONSchemaType<CommonConfig> = {
   properties: {
     serviceName: { type: 'string', default: packageJsonInfo.name },
     hostname: { type: 'string', default: hostname() },
-    version: { type: 'string', default: packageJsonInfo.version },
+    serviceVersion: { type: 'string', default: packageJsonInfo.version },
   },
-  required: ['serviceName', 'hostname', 'version'],
+  required: ['serviceName', 'hostname', 'serviceVersion'],
 };
 
 const envCommonConfig: Partial<CommonConfig> = {
   serviceName: process.env.TELEMETRY_SERVICE_NAME,
   hostname: process.env.TELEMETRY_HOST_NAME,
-  version: process.env.TELEMETRY_SERVICE_VERSION,
+  serviceVersion: process.env.TELEMETRY_SERVICE_VERSION,
 };
 
 let commonConfig: CommonConfig | undefined;

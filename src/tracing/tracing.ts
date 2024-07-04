@@ -64,7 +64,7 @@ export class Tracing implements TelemetryBase<void> {
     if (!this.config.isEnabled) {
       return;
     }
-    const { version, serviceName, traceRatio, ...exporterConfig } = this.config;
+    const { serviceVersion, serviceName, traceRatio, ...exporterConfig } = this.config;
     this.provider = new NodeTracerProvider({
       sampler: new ParentBasedSampler({
         root: new TraceIdRatioBasedSampler(traceRatio),
@@ -72,7 +72,7 @@ export class Tracing implements TelemetryBase<void> {
       resource: new Resource({
         ...{
           [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
-          [SemanticResourceAttributes.SERVICE_VERSION]: version,
+          [SemanticResourceAttributes.SERVICE_VERSION]: serviceVersion,
         },
         ...this.attributes,
       }),

@@ -46,7 +46,7 @@ export class Metrics implements TelemetryBase<void> {
     if (!this.config.isEnabled) {
       return;
     }
-    const { version, sendInterval, url, serviceName, hostname } = this.config;
+    const { serviceVersion, sendInterval, url, serviceName, hostname } = this.config;
 
     const exporter = new OTLPMetricExporter({ url });
 
@@ -54,7 +54,7 @@ export class Metrics implements TelemetryBase<void> {
       resource: new Resource({
         ...{
           [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
-          [SemanticResourceAttributes.SERVICE_VERSION]: version,
+          [SemanticResourceAttributes.SERVICE_VERSION]: serviceVersion,
           [SemanticResourceAttributes.HOST_NAME]: hostname,
         },
         ...this.attributes,
