@@ -1,8 +1,5 @@
 import { IncomingMessage, RequestOptions } from 'http';
 import api, { Span, SpanOptions, SpanStatusCode, Tracer } from '@opentelemetry/api';
-import { getTracingConfig } from '../config';
-
-const tracingConfig = getTracingConfig();
 
 /**
  * Binds a parent span to a function, ensuring that the function executes within the context of the span.
@@ -53,9 +50,6 @@ export const asyncCallWithSpan = async <T>(
   spanName: string,
   spanOptions?: SpanOptions
 ): Promise<T> => {
-  if (!tracingConfig.isEnabled) {
-    return fn();
-  }
   return new Promise((resolve, reject) => {
     return tracer.startActiveSpan(spanName, spanOptions ?? {}, (span) => {
       fn(span)
@@ -80,9 +74,6 @@ export const asyncCallWithSpan = async <T>(
  * @returns the result of the original function
  */
 export const callWithSpan = <T>(fn: (span?: Span) => T, tracer: Tracer, spanName: string, spanOptions?: SpanOptions): T => {
-  if (!tracingConfig.isEnabled) {
-    return fn();
-  }
   return tracer.startActiveSpan(spanName, spanOptions ?? {}, (span) => {
     try {
       const result = fn(span);
