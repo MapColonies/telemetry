@@ -49,3 +49,5 @@ Now you can run `docker-compose` from `tempo/example/docker-compose/local` and a
 
 Access Prometheus at [localhost:9090](http://localhost:9090), go to `Status -> Targets`, and you should see the job you created with the path provided in the endpoint.
 
+# Happy observability adventure! 😊
+
