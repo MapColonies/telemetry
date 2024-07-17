@@ -2,7 +2,7 @@
 ## Motive
 This package goal is to make the experience of configuring and working with OpenTelemetry easier.
 
-## [Manual for easy local grafana deployment](./localManual.md)
+## [Manual for easy local grafana deployment](./docs/localManual.md)
 ## example
 Below are short examples for tracing and metrics. More examples are available at the [examples folder](examples/), and the various opentelemetry repos.
 ### Tracing
