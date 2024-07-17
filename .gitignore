@@ -109,8 +109,5 @@ reports
 # dev utils
 .tsimp
 
-# doc utils
-docs
-
 # semanticConventions
 src/semanticConventions/**/*.ts
