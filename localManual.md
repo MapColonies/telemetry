@@ -33,11 +33,11 @@ As mentioned in the manual above, clone the repository to your local machine.
     - job_name: 'app'
       static_configs:
         - targets:
-          - '172.17.0.1:8081'
+          - '172.17.0.1:8080'
     ```
 
     - Docker internal network IP that is static: `172.17.0.1`
-    - The port your service is running on: `8081`
+    - The port your service is running on: `8080`
 
 **Don't forget to save.**
 
