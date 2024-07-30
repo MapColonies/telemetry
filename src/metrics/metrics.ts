@@ -5,7 +5,21 @@ import { Resource } from '@opentelemetry/resources';
 import { ConsoleMetricExporter, MeterProvider, PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 import { TelemetryBase } from '../common/interfaces';
+import { Prettify } from '../common/types';
 import { getMetricsConfig, MetricsConfig } from './config';
+
+export type MetricsOptions = Prettify<
+  Partial<MetricsConfig> & {
+    /**
+     * Optional attributes to be associated with the metrics.
+     */
+    attributes?: api.Attributes;
+    /**
+     * Optional flag to enable debug mode.
+     */
+    debug?: boolean;
+  }
+>;
 
 /**
  * Represents a metrics class that provides telemetry functionality.
@@ -13,14 +27,16 @@ import { getMetricsConfig, MetricsConfig } from './config';
 export class Metrics implements TelemetryBase<void> {
   private provider?: MeterProvider;
   private readonly config: MetricsConfig;
+  private readonly attributes?: api.Attributes;
 
   /**
    * Creates an instance of the Metrics class.
-   * @param attributes - Optional attributes to be associated with the metrics.
-   * @param debug - Specifies whether to enable debug mode for the metrics.
+   * @param attributes - The attributes to be associated with the metrics.
    */
-  public constructor(private readonly attributes?: api.Attributes, private readonly debug?: boolean) {
-    this.config = getMetricsConfig();
+  public constructor(options: MetricsOptions = {}) {
+    const { attributes, ...config } = options;
+    this.config = getMetricsConfig(config);
+    this.attributes = attributes;
   }
 
   /**
@@ -30,7 +46,7 @@ export class Metrics implements TelemetryBase<void> {
     if (!this.config.isEnabled) {
       return;
     }
-    const { version, sendInterval, url, serviceName, hostname } = this.config;
+    const { serviceVersion, sendInterval, url, serviceName, hostname } = this.config;
 
     const exporter = new OTLPMetricExporter({ url });
 
@@ -38,7 +54,7 @@ export class Metrics implements TelemetryBase<void> {
       resource: new Resource({
         ...{
           [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
-          [SemanticResourceAttributes.SERVICE_VERSION]: version,
+          [SemanticResourceAttributes.SERVICE_VERSION]: serviceVersion,
           [SemanticResourceAttributes.HOST_NAME]: hostname,
         },
         ...this.attributes,
@@ -47,7 +63,7 @@ export class Metrics implements TelemetryBase<void> {
 
     this.provider.addMetricReader(new PeriodicExportingMetricReader({ exporter, exportIntervalMillis: sendInterval }));
 
-    if (this.debug === true) {
+    if (this.config.debug) {
       api.diag.setLogger(new api.DiagConsoleLogger(), api.DiagLogLevel.ALL);
       this.provider.addMetricReader(new PeriodicExportingMetricReader({ exporter: new ConsoleMetricExporter(), exportIntervalMillis: sendInterval }));
     }
