@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0](https://github.com/MapColonies/telemetry/compare/v6.1.0...v7.0.0) (2024-07-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* options change ([#69](https://github.com/MapColonies/telemetry/issues/69))
+
+### Features
+
+* add emoji ([22ab951](https://github.com/MapColonies/telemetry/commit/22ab951f65a58fbe6ce0bb0f38c311bfdf03c773))
+* local manual for local grafana deployment ([51b0a5e](https://github.com/MapColonies/telemetry/commit/51b0a5ee0d054aeab3b5561d3b5056e907c7ef87))
+
+
+### Bug Fixes
+
+* moved manual to docs folder ([5b7a6fe](https://github.com/MapColonies/telemetry/commit/5b7a6fe8507e396e32058402d63459f7664fb395))
+* pr changes ([3109455](https://github.com/MapColonies/telemetry/commit/3109455fec9f6ec4815b60c7a7269fffc6bca464))
+
+
+### Code Refactoring
+
+* options change ([#69](https://github.com/MapColonies/telemetry/issues/69)) ([8599539](https://github.com/MapColonies/telemetry/commit/8599539a6e847fbcdf2ae9db18a22b231dc49595))
+
 ## [6.1.0](https://github.com/MapColonies/telemetry/compare/v6.0.0...v6.1.0) (2024-06-17)
 
 
