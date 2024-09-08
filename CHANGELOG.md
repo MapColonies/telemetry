@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.1](https://github.com/MapColonies/telemetry/compare/v7.0.0...v7.0.1) (2024-09-08)
+
+
+### Bug Fixes
+
+* decorator return types ([#74](https://github.com/MapColonies/telemetry/issues/74)) ([8770968](https://github.com/MapColonies/telemetry/commit/877096895033904a9a27552104b7693705d5eb70))
+
 ## [7.0.0](https://github.com/MapColonies/telemetry/compare/v6.1.0...v7.0.0) (2024-07-30)
 
 
