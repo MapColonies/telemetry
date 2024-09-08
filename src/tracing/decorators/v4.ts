@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any , @typescript-eslint/no-unsafe-return */
+
 import { Tracer } from '@opentelemetry/api';
 import { asyncCallWithSpan, callWithSpan } from '../utils/tracing';
 
@@ -10,18 +12,18 @@ import { asyncCallWithSpan, callWithSpan } from '../utils/tracing';
  * @param descriptor the method descriptor
  * @returns the decorated descriptor
  */
-export function withSpanV4<This extends { tracer: Tracer }, Args extends unknown[], Return>(
+export function withSpanV4<This extends { tracer: Tracer }, Args extends unknown[]>(
   _target: This,
   propertyKey: string | symbol,
-  descriptor: TypedPropertyDescriptor<(this: This, ...args: Args) => Return>
-): TypedPropertyDescriptor<(this: This, ...args: Args) => Return> {
+  descriptor: TypedPropertyDescriptor<(this: This, ...args: Args) => any>
+): TypedPropertyDescriptor<(this: This, ...args: Args) => any> {
   const originalMethod = descriptor.value;
 
   if (originalMethod === undefined) {
     throw new Error('Decorated method is undefined');
   }
 
-  descriptor.value = function (this: This, ...args: Args): Return {
+  descriptor.value = function (this: This, ...args: Args): any {
     return callWithSpan(() => originalMethod.call(this, ...args), this.tracer, String(propertyKey));
   };
 
@@ -37,18 +39,18 @@ export function withSpanV4<This extends { tracer: Tracer }, Args extends unknown
  * @param descriptor the async method descriptor
  * @returns the decorated descriptor
  */
-export function withSpanAsyncV4<This extends { tracer: Tracer }, Args extends unknown[], Return>(
+export function withSpanAsyncV4<This extends { tracer: Tracer }, Args extends unknown[]>(
   _target: This,
   propertyKey: string | symbol,
-  descriptor: TypedPropertyDescriptor<(this: This, ...args: Args) => Promise<Return>>
-): TypedPropertyDescriptor<(this: This, ...args: Args) => Promise<Return>> {
+  descriptor: TypedPropertyDescriptor<(this: This, ...args: Args) => Promise<any>>
+): TypedPropertyDescriptor<(this: This, ...args: Args) => Promise<any>> {
   const originalMethod = descriptor.value;
 
   if (originalMethod === undefined) {
     throw new Error('Decorated method is undefined');
   }
 
-  descriptor.value = async function (this: This, ...args: Args): Promise<Return> {
+  descriptor.value = async function (this: This, ...args: Args): Promise<any> {
     return asyncCallWithSpan(async () => originalMethod.call(this, ...args), this.tracer, String(propertyKey));
   };
 
