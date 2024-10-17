@@ -30,6 +30,10 @@ interface Opts {
    * The labels to attach to the metrics.
    */
   labels: Record<string, string>;
+  /**
+   * Function to transform labels with request and response objects.
+   */
+  transformLabels?: promBundle.Opts['transformLabels'];
 }
 
 /**
@@ -149,6 +153,7 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
     includeMethod: true,
     includeStatusCode: true,
     includePath: true,
+    transformLabels: mergedOptions.transformLabels,
   };
   return promBundle(promBundleConfig);
 }
