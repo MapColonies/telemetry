@@ -29,16 +29,11 @@ interface Opts {
   /**
    * The labels to attach to the metrics.
    */
-  labels: Record<string, string>;
+  labels: promBundle.Opts['customLabels'];
   /**
    * Function to transform labels with request and response objects.
    */
   transformLabels?: promBundle.Opts['transformLabels'];
-  /**
-   * Function to normalize the path to fix path params masking.
-   * See {@link https://github.com/jochen-schweizer/express-prom-bundle?tab=readme-ov-file#more-details-on-includepath-option} for more details.
-   */
-  normalizePath?: promBundle.Opts['normalizePath'];
 }
 
 /**
@@ -159,7 +154,6 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
     includeStatusCode: true,
     includePath: true,
     transformLabels: mergedOptions.transformLabels,
-    normalizePath: mergedOptions.normalizePath,
   };
   return promBundle(promBundleConfig);
 }
