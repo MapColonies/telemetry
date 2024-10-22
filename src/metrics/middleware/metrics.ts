@@ -99,12 +99,13 @@ export function defaultMetricsMiddleware(prefix?: string, labels?: Record<string
 
 /**
  * Collects metrics for Express middleware.
+ * The metrics collected include statistics on request duration.
  *
  * @param options - Optional configuration options for the middleware.
  * @returns The Express middleware function that collects metrics.
  */
 export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBundle.Middleware {
-  const pacakgeInfo = loadPackageInfo();
+  const packageInfo = loadPackageInfo();
   const defaultOpts = {
     prefix: '',
     labels: {},
@@ -120,7 +121,7 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
   /* eslint-disable @typescript-eslint/naming-convention */
   const mergedLabels: promBundle.Opts['customLabels'] = {
     hostname: osHostname(),
-    service_name: pacakgeInfo.name,
+    service_name: packageInfo.name,
     ...mergedOptions.labels,
   };
 
@@ -132,7 +133,7 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
 
   if (mergedOptions.collectServiceVersion) {
     const gaugeLabels = ['service_version_major', 'service_version_minor', 'service_version_patch', 'service_version_prerelease'];
-    const semver = deconstructSemver(pacakgeInfo.version);
+    const semver = deconstructSemver(packageInfo.version);
     if (!semver) {
       throw new Error('package.json includes version not according to semver spec');
     }

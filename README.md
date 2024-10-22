@@ -58,6 +58,30 @@ counter.add(1);
 metrics.stop().then(() => console.log('done'));
 ```
 
+## Metrics middleware
+The package provides a middleware for express that will automatically measure the duration of each request and the number of requests.
+In addition the middleware can be configured to collect NodeJS metrics.
+
+```typescript
+import { collectMetricsExpressMiddleware } from '@map-colonies/telemetry/prom-metrics';
+import express from 'express';
+import { Registry } from 'prom-client';
+
+const prom = collectMetricsExpressMiddleware({ registry: new Registry(), labels: { meow: 'a' } });
+
+app.use('/metrics', prom);
+app.get('/', (req, res) => {
+  res.json({ x: 'd' });
+});
+
+app.listen(8080, () => console.log('server listening on 8080'));
+```
+
+> [!NOTE]
+> If you are not running the `express-openapi-validator` middleware, its recommended to turn off the `includeOperationId` option in the `collectMetricsExpressMiddleware` function as the operation label will always be null.
+
+
+
 ## Semantic Conventions
 #### The package's Semantic Conventions submodule defines a common set of (semantic) attributes which provide meaning to data when collecting, producing and consuming it.
 Based on the [official OpenTelemetry conventions](https://opentelemetry.io/docs/specs/semconv/)
