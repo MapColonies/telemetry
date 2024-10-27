@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.0.0](https://github.com/MapColonies/telemetry/compare/v7.0.1...v8.0.0) (2024-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **metrics:** add operationId and remove path from metrics ([#78](https://github.com/MapColonies/telemetry/issues/78))
+
+### Features
+
+* **metrics:** add operationId and remove path from metrics ([#78](https://github.com/MapColonies/telemetry/issues/78)) ([99d9ab4](https://github.com/MapColonies/telemetry/commit/99d9ab466a67e24a476964a96da88493a80ce567))
+
 ## [7.0.1](https://github.com/MapColonies/telemetry/compare/v7.0.0...v7.0.1) (2024-09-08)
 
 
