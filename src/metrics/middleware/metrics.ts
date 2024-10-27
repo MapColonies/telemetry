@@ -1,7 +1,8 @@
 import { hostname as osHostname } from 'os';
 import { Registry, collectDefaultMetrics, Gauge, register } from 'prom-client';
-import promBundle from 'express-prom-bundle';
+import promBundle, { Labels } from 'express-prom-bundle';
 import * as express from 'express';
+import { get } from 'lodash';
 import { loadPackageInfo } from '../../common/packageInfoLoader';
 import { deconstructSemver } from '../../common/util';
 
@@ -27,9 +28,23 @@ interface Opts {
    */
   prefix: string;
   /**
-   * The labels to attach to the metrics.
+   * Add operation id based on the Openapi operationId to the metrics.
+   * Requires the {@link https://www.npmjs.com/package/express-openapi-validator | express-openapi-validator} package to function.
+   * @default true
+   */
+  includeOperationId: boolean;
+  /**
+   * The labels to attach to all the metrics.
    */
   labels: Record<string, string>;
+  /**
+   * Object containing extra labels, useful together with transformLabels.
+   */
+  customLabels: Exclude<promBundle.Opts['customLabels'], undefined>;
+  /**
+   * Function to transform labels with request and response objects.
+   */
+  transformLabels?: promBundle.Opts['transformLabels'];
 }
 
 /**
@@ -84,40 +99,41 @@ export function defaultMetricsMiddleware(prefix?: string, labels?: Record<string
 
 /**
  * Collects metrics for Express middleware.
+ * The metrics collected include statistics on request duration.
  *
  * @param options - Optional configuration options for the middleware.
  * @returns The Express middleware function that collects metrics.
  */
 export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBundle.Middleware {
-  const pacakgeInfo = loadPackageInfo();
+  const packageInfo = loadPackageInfo();
   const defaultOpts = {
     prefix: '',
     labels: {},
+    includeOperationId: true,
     collectNodeMetrics: true,
     collectServiceVersion: true,
     registry: new Registry(),
+    customLabels: {} as Opts['customLabels'],
   } satisfies Opts;
+
   const mergedOptions = { ...defaultOpts, ...options };
+
   /* eslint-disable @typescript-eslint/naming-convention */
-  const mergedLabels = {
+  const mergedLabels: promBundle.Opts['customLabels'] = {
     hostname: osHostname(),
-    service_name: pacakgeInfo.name,
-    ...(options.labels ? options.labels : {}),
+    service_name: packageInfo.name,
+    ...mergedOptions.labels,
   };
-  register.setDefaultLabels(mergedLabels);
+
+  mergedOptions.registry.setDefaultLabels(mergedLabels);
+
   if (mergedOptions.collectNodeMetrics) {
-    collectDefaultMetrics({ prefix: mergedOptions.prefix, labels: mergedLabels, register: mergedOptions.registry });
+    collectDefaultMetrics({ prefix: mergedOptions.prefix, register: mergedOptions.registry });
   }
 
   if (mergedOptions.collectServiceVersion) {
-    const gaugeLabels = [
-      ...Object.keys(mergedLabels),
-      'service_version_major',
-      'service_version_minor',
-      'service_version_patch',
-      'service_version_prerelease',
-    ];
-    const semver = deconstructSemver(pacakgeInfo.version);
+    const gaugeLabels = ['service_version_major', 'service_version_minor', 'service_version_patch', 'service_version_prerelease'];
+    const semver = deconstructSemver(packageInfo.version);
     if (!semver) {
       throw new Error('package.json includes version not according to semver spec');
     }
@@ -128,27 +144,50 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
       labelNames: gaugeLabels,
       registers: [mergedOptions.registry],
     });
+
     /* eslint-disable @typescript-eslint/naming-convention */
-    serviceVersionGauge.set(
-      {
-        ...mergedLabels,
-        service_version_major: major,
-        service_version_minor: minor,
-        service_version_patch: patch,
-        service_version_prerelease: prerelease,
-      },
-      1
-    );
+    const versionLabels: Record<string, string> = {
+      service_version_major: major,
+      service_version_minor: minor,
+      service_version_patch: patch,
+    };
+
+    if (prerelease !== undefined) {
+      versionLabels.service_version_prerelease = prerelease;
+    }
+    /* eslint-enable @typescript-eslint/naming-convention */
+    serviceVersionGauge.set(versionLabels, 1);
+  }
+
+  let transformLabels = mergedOptions.transformLabels;
+
+  if (mergedOptions.includeOperationId) {
+    const operationIdLabel = 'operation';
+    mergedOptions.customLabels[operationIdLabel] = null;
+
+    if (!transformLabels) {
+      transformLabels = (customLabels: Labels, req: express.Request, res: express.Response): void => {
+        const operationId = get(req, 'openapi.schema.operationId') as string | undefined;
+        if (typeof operationId == 'string') {
+          customLabels[operationIdLabel] = operationId;
+        }
+
+        if (mergedOptions.transformLabels) {
+          mergedOptions.transformLabels(customLabels, req, res);
+        }
+      };
+    }
   }
 
   const promBundleConfig: promBundle.Opts = {
     promRegistry: mergedOptions.registry,
     autoregister: true,
     includeUp: true,
-    customLabels: mergedLabels,
+    customLabels: mergedOptions.customLabels,
     includeMethod: true,
     includeStatusCode: true,
-    includePath: true,
+    includePath: false,
+    transformLabels,
   };
   return promBundle(promBundleConfig);
 }
