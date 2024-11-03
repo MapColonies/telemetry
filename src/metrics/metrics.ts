@@ -2,8 +2,9 @@ import * as api from '@opentelemetry/api';
 import { metrics } from '@opentelemetry/api';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-http';
 import { Resource } from '@opentelemetry/resources';
-import { ConsoleMetricExporter, MeterProvider, PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
-import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
+import { ConsoleMetricExporter, MeterProvider, MetricReader, PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
+import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';
+import { ATTR_HOST_NAME } from '@opentelemetry/semantic-conventions/incubating';
 import { TelemetryBase } from '../common/interfaces';
 import { Prettify } from '../common/types';
 import { getMetricsConfig, MetricsConfig } from './config';
@@ -50,23 +51,24 @@ export class Metrics implements TelemetryBase<void> {
 
     const exporter = new OTLPMetricExporter({ url });
 
-    this.provider = new MeterProvider({
-      resource: new Resource({
-        ...{
-          [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
-          [SemanticResourceAttributes.SERVICE_VERSION]: serviceVersion,
-          [SemanticResourceAttributes.HOST_NAME]: hostname,
-        },
-        ...this.attributes,
-      }),
-    });
-
-    this.provider.addMetricReader(new PeriodicExportingMetricReader({ exporter, exportIntervalMillis: sendInterval }));
+    const metricReader: MetricReader[] = [new PeriodicExportingMetricReader({ exporter, exportIntervalMillis: sendInterval })];
 
     if (this.config.debug) {
       api.diag.setLogger(new api.DiagConsoleLogger(), api.DiagLogLevel.ALL);
-      this.provider.addMetricReader(new PeriodicExportingMetricReader({ exporter: new ConsoleMetricExporter(), exportIntervalMillis: sendInterval }));
+      metricReader.push(new PeriodicExportingMetricReader({ exporter: new ConsoleMetricExporter(), exportIntervalMillis: sendInterval }));
     }
+
+    this.provider = new MeterProvider({
+      resource: new Resource({
+        ...{
+          [ATTR_SERVICE_NAME]: serviceName,
+          [ATTR_SERVICE_VERSION]: serviceVersion,
+          [ATTR_HOST_NAME]: hostname,
+        },
+        ...this.attributes,
+      }),
+      readers: metricReader,
+    });
 
     metrics.setGlobalMeterProvider(this.provider);
   }

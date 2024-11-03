@@ -3,9 +3,9 @@ import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
 import { ParentBasedSampler, TraceIdRatioBasedSampler } from '@opentelemetry/sdk-trace-base';
 import { getNodeAutoInstrumentations, InstrumentationConfigMap } from '@opentelemetry/auto-instrumentations-node';
 import { BatchSpanProcessor, ConsoleSpanExporter, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
-import { InstrumentationOption, registerInstrumentations } from '@opentelemetry/instrumentation';
+import { Instrumentation, registerInstrumentations } from '@opentelemetry/instrumentation';
 import { Resource } from '@opentelemetry/resources';
-import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
+import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';
 import * as api from '@opentelemetry/api';
 import { Prettify } from '../common/types';
 import { TelemetryBase } from '../common/interfaces';
@@ -19,7 +19,7 @@ export type TracingOptions = Prettify<
     /**
      * Optional array of instrumentations.
      */
-    instrumentations?: InstrumentationOption[];
+    instrumentations?: Instrumentation[];
     /**
      * Optional map of auto-instrumentation configurations.
      */
@@ -41,7 +41,7 @@ export type TracingOptions = Prettify<
 export class Tracing implements TelemetryBase<void> {
   private provider?: NodeTracerProvider;
   private readonly config: TracingConfig;
-  private readonly instrumentations?: InstrumentationOption[];
+  private readonly instrumentations?: Instrumentation[];
   private readonly autoInstrumentationsConfigMap?: InstrumentationConfigMap;
   private readonly attributes?: api.Attributes;
 
@@ -71,8 +71,8 @@ export class Tracing implements TelemetryBase<void> {
       }),
       resource: new Resource({
         ...{
-          [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
-          [SemanticResourceAttributes.SERVICE_VERSION]: serviceVersion,
+          [ATTR_SERVICE_NAME]: serviceName,
+          [ATTR_SERVICE_VERSION]: serviceVersion,
         },
         ...this.attributes,
       }),
@@ -91,10 +91,10 @@ export class Tracing implements TelemetryBase<void> {
 
     registerInstrumentations({
       instrumentations: [
-        ...(getNodeAutoInstrumentations({
+        ...getNodeAutoInstrumentations({
           ...this.autoInstrumentationsConfigMap,
           ['@opentelemetry/instrumentation-pino']: { enabled: false },
-        }) as InstrumentationOption[]),
+        }),
         ...(this.instrumentations ?? []),
       ],
     });
