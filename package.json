@@ -52,6 +52,9 @@
   "files": [
     "dist/**/*"
   ],
+  "engines": {
+    "node": ">=20"
+  },
   "homepage": "https://github.com/MapColonies/telemetry#readme",
   "dependencies": {
     "@apideck/better-ajv-errors": "^0.3.6",
