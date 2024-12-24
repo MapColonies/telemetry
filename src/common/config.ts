@@ -94,4 +94,4 @@ function getCommonConfig(options: Partial<CommonConfig>): CommonConfig {
   return commonConfig;
 }
 
-export { CommonConfig, getCommonConfig, mergeAndValidateConfig };
+export { type CommonConfig, getCommonConfig, mergeAndValidateConfig };

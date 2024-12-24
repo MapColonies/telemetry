@@ -62,4 +62,4 @@ function getMetricsConfig(options: Partial<BaseMetricsConfig> & Partial<CommonCo
   };
 }
 
-export { MetricsConfig, getMetricsConfig };
+export { type MetricsConfig, getMetricsConfig };

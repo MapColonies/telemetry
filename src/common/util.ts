@@ -6,9 +6,9 @@ export function deconstructSemver(
     return null;
   }
   return {
-    major: match[1],
-    minor: match[2],
-    patch: match[3],
+    major: match[1] ?? 'undefined',
+    minor: match[2] ?? 'undefined',
+    patch: match[3] ?? 'undefined',
     prerelease: match[4],
     build: match[5],
   };

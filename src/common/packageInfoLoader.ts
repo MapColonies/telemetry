@@ -19,4 +19,4 @@ const loadPackageInfo = (): PackageInfo => {
   return packageInfo;
 };
 
-export { loadPackageInfo, PackageInfo };
+export { loadPackageInfo, type PackageInfo };

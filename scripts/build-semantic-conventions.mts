@@ -107,8 +107,8 @@ function generateDomainConventionObject(objectWithoutDocs: unknown): string {
   for (const line of objectArrayTmp) {
     if (line.includes('@')) {
       const [keyValueLine, description, deprecated] = line.split('@');
-      const isDeprecated = deprecated.toLowerCase().includes('true');
-      const docStr = buildDocString(description, isDeprecated);
+      const isDeprecated = (deprecated as string).toLowerCase().includes('true');
+      const docStr = buildDocString(description as string, isDeprecated);
       const currentIdx = objectArrayTmp.indexOf(line);
       objectArrayTmp[currentIdx] = `${keyValueLine}",`; // place the propertyName to current index
       objectArrayTmp.splice(currentIdx, 0, docStr); // add docs to related propertyName

@@ -1,21 +1,5 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "lib": ["ESNext"],
-    "strict": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "resolveJsonModule": true,
-    "outDir": "dist",
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "strictNullChecks": true,
-  },
+  "extends": ["@map-colonies/tsconfig/tsconfig-library"],
   "include": ["src", "scripts"],
   "exclude": ["dist", "node_modules"],
 }
