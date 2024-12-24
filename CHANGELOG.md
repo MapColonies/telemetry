@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [9.0.0](https://github.com/MapColonies/telemetry/compare/v8.0.0...v9.0.0) (2024-12-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* added engine setting to package.json ([#81](https://github.com/MapColonies/telemetry/issues/81))
+
+### Build System
+
+* added engine setting to package.json ([#81](https://github.com/MapColonies/telemetry/issues/81)) ([0a17899](https://github.com/MapColonies/telemetry/commit/0a17899ed655314953fd6b09aa30853ac829bf12))
+
 ## [8.0.0](https://github.com/MapColonies/telemetry/compare/v7.0.1...v8.0.0) (2024-10-27)
 
 
