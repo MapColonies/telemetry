@@ -11,18 +11,18 @@ jobs:
     name: Run TS Project eslint
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node: [20.x, 22.x]
+
     steps:
       - name: Check out TS Project Git repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
+      - name: Init nodejs
+        uses: ./.github/actions/init-npm
         with:
-          node-version: 20.x
-          cache: npm
-
-      - name: Install TS Project dependencies
-        run: npm ci
+          node-version: ${{ matrix.node }}
 
       - name: Run TS Project linters
         uses: wearerequired/lint-action@v2
@@ -39,13 +39,9 @@ jobs:
     steps:
       - name: Check out TS Project Git repository
         uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-          cache: npm
-      - name: Install TS Project dependencies
-        run: npm ci
+      - name: Init nodejs
+        uses: ./.github/actions/init-npm
+
       - name: Pack the package
         run: npm pack
       - name: get properties

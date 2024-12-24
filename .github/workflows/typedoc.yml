@@ -32,13 +32,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - name: Install TS Project dependencies
-        run: npm ci
+      - name: Init nodejs
+        uses: ./.github/actions/init-npm
       - name: build docs
         run: npm run typedoc
       - name: build the package
