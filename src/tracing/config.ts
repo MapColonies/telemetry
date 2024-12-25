@@ -62,4 +62,4 @@ function getTracingConfig(options: Partial<BaseTracingConfig> & Partial<CommonCo
   };
 }
 
-export { TracingConfig, getTracingConfig };
+export { type TracingConfig, getTracingConfig };

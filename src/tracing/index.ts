@@ -1,4 +1,4 @@
-export { Tracing, TracingOptions } from './tracing';
+export { Tracing, type TracingOptions } from './tracing';
 export { getTraceContexHeaderMiddleware } from './middleware/traceOnHeaderMiddleware';
 export * from './utils/tracing';
 export { getOtelMixin } from './mixin';
