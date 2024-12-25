@@ -32,7 +32,8 @@
     "validate:attributes": "node --import=tsimp/import scripts/validate-semantic-conventions.mts",
     "generate:attributes": "node --import=tsimp/import scripts/build-semantic-conventions.mts",
     "generate:types": "json2ts schemas/attribute.schema.json > scripts/autogen.mts",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -42,12 +43,6 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MapColonies/telemetry/issues"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "files": [
     "dist/**/*"
@@ -89,7 +84,7 @@
     "commitlint": "^11.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.56.0",
-    "husky": "^4.3.5",
+    "husky": "^9.1.7",
     "json-schema-to-typescript": "^13.1.2",
     "just-safe-set": "^4.2.1",
     "pino": "^8.14.1",
