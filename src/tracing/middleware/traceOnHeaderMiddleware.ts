@@ -7,8 +7,9 @@ const RADIX = 16;
 /**
  * Returns a express middleware handler that sets the trace context header.
  * @returns The middleware handler.
+ * @group Tracing Utilities
  */
-export const getTraceContexHeaderMiddleware: () => Handler = () => {
+export function getTraceContexHeaderMiddleware(): Handler {
   const traceContexHeaderMiddleware: Handler = (req, res, next): void => {
     const spanContext = trace.getSpanContext(context.active());
     if (spanContext) {
@@ -20,4 +21,4 @@ export const getTraceContexHeaderMiddleware: () => Handler = () => {
     return next();
   };
   return traceContexHeaderMiddleware;
-};
+}

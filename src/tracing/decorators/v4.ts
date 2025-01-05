@@ -11,6 +11,7 @@ import { asyncCallWithSpan, callWithSpan } from '../utils/tracing';
  * @param propertyKey the name of the decorated method
  * @param descriptor the method descriptor
  * @returns the decorated descriptor
+ * @group Tracing Decorators
  */
 export function withSpanV4<This extends { tracer: Tracer }, Args extends unknown[]>(
   _target: This,
@@ -38,6 +39,7 @@ export function withSpanV4<This extends { tracer: Tracer }, Args extends unknown
  * @param propertyKey the name of the decorated async method
  * @param descriptor the async method descriptor
  * @returns the decorated descriptor
+ * @group Tracing Decorators
  */
 export function withSpanAsyncV4<This extends { tracer: Tracer }, Args extends unknown[]>(
   _target: This,

@@ -13,30 +13,26 @@ import { getTracingConfig, TracingConfig } from './config';
 
 /**
  * The options to configure the tracing functionality.
+ * @group Tracing
  */
-export type TracingOptions = Prettify<
-  Partial<TracingConfig> & {
-    /**
-     * Optional array of instrumentations.
-     */
-    instrumentations?: InstrumentationOption[];
-    /**
-     * Optional map of auto-instrumentation configurations.
-     */
-    autoInstrumentationsConfigMap?: InstrumentationConfigMap;
-    /**
-     * Optional attributes to be added to the resource.
-     */
-    attributes?: api.Attributes;
-    /**
-     * Optional flag to enable debug mode.
-     */
-    debug?: boolean;
-  }
->;
+export type TracingOptions = Prettify<Partial<TracingConfig>> & {
+  /**
+   * Optional array of instrumentations.
+   */
+  instrumentations?: InstrumentationOption[];
+  /**
+   * Optional map of auto-instrumentation configurations.
+   */
+  autoInstrumentationsConfigMap?: InstrumentationConfigMap;
+  /**
+   * Optional attributes to be added to the resource.
+   */
+  attributes?: api.Attributes;
+};
 
 /**
  * Represents a Tracing instance that provides telemetry functionality.
+ * @group Tracing
  */
 export class Tracing implements TelemetryBase<void> {
   private provider?: NodeTracerProvider;
@@ -49,7 +45,7 @@ export class Tracing implements TelemetryBase<void> {
    * Creates a new instance of the Tracing class.
    * @param options - The options to configure the tracing functionality.
    */
-  public constructor(options: TracingOptions = {}) {
+  public constructor(options: Prettify<TracingOptions> = {}) {
     const { instrumentations, autoInstrumentationsConfigMap, attributes, ...config } = options;
     this.config = getTracingConfig(config);
     this.instrumentations = options.instrumentations;

@@ -29,19 +29,20 @@ As mentioned in the manual above, clone the repository to your local machine.
 - Open the cloned repository and navigate to `tempo/example/docker-compose/shared/prometheus.yaml`.
 - Add the following job according to the service you are running locally:
 
-    ```yaml
-    - job_name: 'app'
-      static_configs:
-        - targets:
+  ```yaml
+  - job_name: 'app'
+    static_configs:
+      - targets:
           - '172.17.0.1:8080'
-    ```
+  ```
 
-    - Docker internal network IP that is static: `172.17.0.1`
-    - The port your service is running on: `8080`
+  - Docker internal network IP that is static: `172.17.0.1`
+  - The port your service is running on: `8080`
 
 **Don't forget to save.**
 
 These two simple steps enable the following:
+
 1. Removal of fake clients from Tempo.
 2. Configuration of Prometheus to collect metrics from your local app.
 
@@ -50,4 +51,3 @@ Now you can run `docker-compose` from `tempo/example/docker-compose/local` and a
 Access Prometheus at [localhost:9090](http://localhost:9090), go to `Status -> Targets`, and you should see the job you created with the path provided in the endpoint.
 
 # Happy observability adventure! 😊
-

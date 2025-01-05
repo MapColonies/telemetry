@@ -5,24 +5,25 @@ import { Resource } from '@opentelemetry/resources';
 import { ConsoleMetricExporter, MeterProvider, PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 import { TelemetryBase } from '../common/interfaces';
-import { Prettify } from '../common/types';
-import { getMetricsConfig, MetricsConfig } from './config';
+import { MetricsConfig, getMetricsConfig } from './config';
 
-export type MetricsOptions = Prettify<
-  Partial<MetricsConfig> & {
-    /**
-     * Optional attributes to be associated with the metrics.
-     */
-    attributes?: api.Attributes;
-    /**
-     * Optional flag to enable debug mode.
-     */
-    debug?: boolean;
-  }
->;
+/**
+ * Configuration options for metrics collection.
+ * Extends the base metrics configuration with optional parameters.
+ *
+ * @interface MetricsOptions
+ * @group Metrics
+ */
+export interface MetricsOptions extends Partial<MetricsConfig> {
+  /**
+   * Optional attributes to be associated with the metrics.
+   */
+  attributes?: api.Attributes;
+}
 
 /**
  * Represents a metrics class that provides telemetry functionality.
+ * @group Metrics
  */
 export class Metrics implements TelemetryBase<void> {
   private provider?: MeterProvider;
@@ -30,8 +31,8 @@ export class Metrics implements TelemetryBase<void> {
   private readonly attributes?: api.Attributes;
 
   /**
-   * Creates an instance of the Metrics class.
-   * @param attributes - The attributes to be associated with the metrics.
+   * Creates a new instance of the metrics class.
+   * @param options - Configuration options for metrics
    */
   public constructor(options: MetricsOptions = {}) {
     const { attributes, ...config } = options;

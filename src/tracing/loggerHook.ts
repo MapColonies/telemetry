@@ -7,6 +7,7 @@ export type LogFnArgs = [obj: object, msg?: string, ...args: any[]] | [msg: stri
 
 /**
  * @deprecated use mixin instead
+ * @group Tracing Utilities
  */
 // disabled because this function signature is required by pino
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
