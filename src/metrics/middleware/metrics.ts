@@ -1,3 +1,7 @@
+/**
+ * Middlewares for integerting prometheus into express based applications
+ * @module Metrics Middlewares
+ */
 import { hostname as osHostname } from 'os';
 import { Registry, collectDefaultMetrics, Gauge } from 'prom-client';
 import promBundle, { Labels } from 'express-prom-bundle';

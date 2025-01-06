@@ -15,7 +15,7 @@ import { getTracingConfig, TracingConfig } from './config';
  * The options to configure the tracing functionality.
  * @group Tracing
  */
-export type TracingOptions = Prettify<Partial<TracingConfig>> & {
+export interface TracingOptions extends Partial<TracingConfig> {
   /**
    * Optional array of instrumentations.
    */
@@ -28,7 +28,11 @@ export type TracingOptions = Prettify<Partial<TracingConfig>> & {
    * Optional attributes to be added to the resource.
    */
   attributes?: api.Attributes;
-};
+  /**
+   * Optional flag to enable debug mode.
+   */
+  debug?: boolean;
+}
 
 /**
  * Represents a Tracing instance that provides telemetry functionality.
