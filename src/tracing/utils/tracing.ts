@@ -8,6 +8,7 @@ import api, { Span, SpanOptions, SpanStatusCode, Tracer } from '@opentelemetry/a
  * @param parentSpan - The parent span to bind.
  * @param func - The function to bind.
  * @returns The bound function.
+ * @group Tracing Utilities
  */
 export const contexBindingHelper = <T>(parentSpan: Span, func: T): T => {
   const ctx = api.trace.setSpan(api.context.active(), parentSpan);
@@ -19,6 +20,7 @@ export const contexBindingHelper = <T>(parentSpan: Span, func: T): T => {
  * The function should be used for configuring the http instrumentation.
  * @param urlsToIgnore An array of regular expressions to match against the request URL.
  * @returns A function that takes an incoming request and returns a boolean indicating whether the request URL should be ignored.
+ * @group Tracing Utilities
  */
 export const ignoreIncomingRequestUrl = (urlsToIgnore: RegExp[]): ((request: IncomingMessage) => boolean) => {
   return (request): boolean => urlsToIgnore.some((regex) => regex.test(request.url ?? ''));
@@ -31,6 +33,7 @@ export const ignoreIncomingRequestUrl = (urlsToIgnore: RegExp[]): ((request: Inc
  *
  * @param pathsToIgnore - An array of regular expressions representing the paths to ignore.
  * @returns A function that takes a request and returns a boolean indicating whether the request path should be ignored.
+ * @group Tracing Utilities
  */
 export const ignoreOutgoingRequestPath = (pathsToIgnore: RegExp[]): ((request: RequestOptions) => boolean) => {
   return (request): boolean => pathsToIgnore.some((regex) => regex.test(request.path ?? ''));
@@ -43,6 +46,7 @@ export const ignoreOutgoingRequestPath = (pathsToIgnore: RegExp[]): ((request: R
  * @param spanName name of the span to be created
  * @param spanOptions Options object needed for span creation with optional attributes: kind, attributes, links, startTime, root
  * @returns the result of the original function
+ * @group Tracing Utilities
  */
 export const asyncCallWithSpan = async <T>(
   fn: (span?: Span) => Promise<T>,
@@ -72,6 +76,7 @@ export const asyncCallWithSpan = async <T>(
  * @param spanName name of the span to be created
  * @param spanOptions Options object needed for span creation with optional attributes: kind, attributes, links, startTime, root
  * @returns the result of the original function
+ * @group Tracing Utilities
  */
 export const callWithSpan = <T>(fn: (span?: Span) => T, tracer: Tracer, spanName: string, spanOptions?: SpanOptions): T => {
   return tracer.startActiveSpan(spanName, spanOptions ?? {}, (span) => {
@@ -89,6 +94,7 @@ export const callWithSpan = <T>(fn: (span?: Span) => T, tracer: Tracer, spanName
 /**
  * Ends the given span with status OK
  * @param span span to be ended
+ * @group Tracing Utilities
  */
 export const handleSpanOnSuccess = (span: Span | undefined): void => {
   if (!span) {
@@ -103,6 +109,7 @@ export const handleSpanOnSuccess = (span: Span | undefined): void => {
  * Ends the given span with status ERROR and records the error
  * @param span span to be ended
  * @param error error to be recorded
+ * @group Tracing Utilities
  */
 export const handleSpanOnError = (span: Span | undefined, error?: unknown): void => {
   if (!span) {

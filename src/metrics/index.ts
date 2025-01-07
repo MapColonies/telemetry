@@ -1,1 +1,1 @@
-export { Metrics } from './metrics';
+export { Metrics, type MetricsOptions } from './metrics';

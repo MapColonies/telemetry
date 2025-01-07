@@ -1,5 +1,9 @@
+/**
+ * Middlewares for integerting prometheus into express based applications
+ * @module Metrics Middlewares
+ */
 import { hostname as osHostname } from 'os';
-import { Registry, collectDefaultMetrics, Gauge, register } from 'prom-client';
+import { Registry, collectDefaultMetrics, Gauge } from 'prom-client';
 import promBundle, { Labels } from 'express-prom-bundle';
 import * as express from 'express';
 import { get } from 'lodash';
@@ -9,7 +13,7 @@ import { deconstructSemver } from '../../common/util';
 /**
  * Options for configuring metrics middleware.
  */
-interface Opts {
+export interface Opts {
   /**
    * The Prometheus registry to use for the metrics.
    */

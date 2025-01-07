@@ -8,6 +8,7 @@ import { asyncCallWithSpan, callWithSpan } from '../utils/tracing';
  * @param target the method to decorate
  * @param context the class method decorator context
  * @returns the decorated method
+ * @group Tracing Decorators
  */
 export function withSpan<This extends { tracer: Tracer }, Args extends unknown[], Return>(
   target: (this: This, ...args: Args) => Return,
@@ -25,6 +26,7 @@ export function withSpan<This extends { tracer: Tracer }, Args extends unknown[]
  * @param target the async method to decorate
  * @param context the class method decorator context
  * @returns the decorated async method
+ * @group Tracing Decorators
  */
 export function withSpanAsync<This extends { tracer: Tracer }, Args extends unknown[], Return>(
   target: (this: This, ...args: Args) => Promise<Return>,
