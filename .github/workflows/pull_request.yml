@@ -35,6 +35,7 @@ jobs:
 
   upload_package:
     needs: [eslint]
+    continue-on-error: true
     runs-on: ubuntu-latest
     steps:
       - name: Check out TS Project Git repository
