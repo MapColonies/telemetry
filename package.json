@@ -87,7 +87,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.56.0",
     "husky": "^9.1.7",
-    "json-schema-to-typescript": "^13.1.2",
+    "json-schema-to-typescript": "^15.0.4",
     "just-safe-set": "^4.2.1",
     "pino": "^8.14.1",
     "prettier": "^2.2.1",
