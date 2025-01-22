@@ -35,7 +35,7 @@ jobs:
       - name: Init nodejs
         uses: ./.github/actions/init-npm
       - name: build docs
-        run: npm run typedoc
+        run: npm run docs
       - name: build the package
         run: npm run build
       - name: Setup Pages
