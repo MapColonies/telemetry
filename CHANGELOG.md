@@ -2,6 +2,90 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [9.0.0](https://github.com/MapColonies/telemetry/compare/telemetry-v8.0.0...telemetry-v9.0.0) (2025-02-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* added engine setting to package.json ([#81](https://github.com/MapColonies/telemetry/issues/81))
+* **metrics:** add operationId and remove path from metrics ([#78](https://github.com/MapColonies/telemetry/issues/78))
+* options change ([#69](https://github.com/MapColonies/telemetry/issues/69))
+* wip first naive json db semantic-conv ([#63](https://github.com/MapColonies/telemetry/issues/63))
+* **deps:** upgraded to otel v1.14 ([#52](https://github.com/MapColonies/telemetry/issues/52))
+* upgraded to new otel version ([#46](https://github.com/MapColonies/telemetry/issues/46))
+* **tracing:** support in resource ([#29](https://github.com/MapColonies/telemetry/issues/29))
+* **deps:** upgrade to otel v1.0.1
+
+### Features
+
+* add 3D semantic conventions ([05bedc2](https://github.com/MapColonies/telemetry/commit/05bedc2100fb1cc2bd10c78e68f7c8a67d0b1a78))
+* add backstage docs ([425355b](https://github.com/MapColonies/telemetry/commit/425355b08bfb5887118d571db4f51f4020e55365))
+* add emoji ([22ab951](https://github.com/MapColonies/telemetry/commit/22ab951f65a58fbe6ce0bb0f38c311bfdf03c773))
+* added functions to simplify ignoring request paths ([#48](https://github.com/MapColonies/telemetry/issues/48)) ([4e1f13a](https://github.com/MapColonies/telemetry/commit/4e1f13a20596384518e96986612fd5d9d7f9b962))
+* added new metrics middleware ([#51](https://github.com/MapColonies/telemetry/issues/51)) ([2779bca](https://github.com/MapColonies/telemetry/commit/2779bca27c3869087d94db5cdee1713ff1505934))
+* added node metrics middleware ([#47](https://github.com/MapColonies/telemetry/issues/47)) ([d211477](https://github.com/MapColonies/telemetry/commit/d21147717caedab13dbdc0074284a2a587fe375d))
+* local manual for local grafana deployment ([51b0a5e](https://github.com/MapColonies/telemetry/commit/51b0a5ee0d054aeab3b5561d3b5056e907c7ef87))
+* **metrics:** add operationId and remove path from metrics ([#78](https://github.com/MapColonies/telemetry/issues/78)) ([99d9ab4](https://github.com/MapColonies/telemetry/commit/99d9ab466a67e24a476964a96da88493a80ce567))
+* **metrics:** added collectMetricsExpressMiddleware and deprecated defaultMetricsMiddleware ([#54](https://github.com/MapColonies/telemetry/issues/54)) ([1148a83](https://github.com/MapColonies/telemetry/commit/1148a83bc516a8122762a859c77a32d3fd55e746))
+* **metrics:** added metrics support ([d3da55f](https://github.com/MapColonies/telemetry/commit/d3da55fd3390ab072f006667bf86909a2b808d56))
+* moved to common tsconfig-package ([#83](https://github.com/MapColonies/telemetry/issues/83)) ([31e0df4](https://github.com/MapColonies/telemetry/commit/31e0df497d589a1453e9619c193f1c2a9215414a))
+* **tracing:** add support for opentelemetry tracing ([#5](https://github.com/MapColonies/telemetry/issues/5)) ([de7e983](https://github.com/MapColonies/telemetry/commit/de7e983b6caa98520bd989d1d0705e7e8cc70edb))
+* **tracing:** add utils for using spans ([#58](https://github.com/MapColonies/telemetry/issues/58)) ([2257d1a](https://github.com/MapColonies/telemetry/commit/2257d1a0822725b31cfca4d66a219a6834de2db8))
+* **tracing:** added configurable tracing support ([#8](https://github.com/MapColonies/telemetry/issues/8)) ([dfc68fe](https://github.com/MapColonies/telemetry/commit/dfc68fea3718f4094e976b6c96c01a10f33cb718))
+* **tracing:** added hook to integrate with pino logger ([#17](https://github.com/MapColonies/telemetry/issues/17)) ([688d67f](https://github.com/MapColonies/telemetry/commit/688d67f299c9327726a9603c11cd55d33af44cdc))
+* **tracing:** added support in isEnabled env ([#28](https://github.com/MapColonies/telemetry/issues/28)) ([b58d3ee](https://github.com/MapColonies/telemetry/commit/b58d3ee1c0cfab28a39ec421621867d8dc0b798a))
+* **tracing:** context binding util ([#32](https://github.com/MapColonies/telemetry/issues/32)) ([9725ed7](https://github.com/MapColonies/telemetry/commit/9725ed7141994c3264a3016e642ca842f0d042a4))
+* **tracing:** support in resource ([#29](https://github.com/MapColonies/telemetry/issues/29)) ([3df6c71](https://github.com/MapColonies/telemetry/commit/3df6c71f4d07b62da7cdfb1196dc6aa13ed6066d))
+* **tracing:** trace id on header middleware ([#27](https://github.com/MapColonies/telemetry/issues/27)) ([a6a2a31](https://github.com/MapColonies/telemetry/commit/a6a2a31cebce3378d37fee1ebabd34261606de8e))
+* validate also the domain ([9281ae5](https://github.com/MapColonies/telemetry/commit/9281ae5e5be7ecd82d50d26d78b8e5563fbc6684))
+* wip first naive json db semantic-conv ([#63](https://github.com/MapColonies/telemetry/issues/63)) ([646f441](https://github.com/MapColonies/telemetry/commit/646f4416b34c69eeb66307d9cc0508335c25654b))
+
+
+### Bug Fixes
+
+* added missing merrgedLabels to list of gauge labels ([5391ca6](https://github.com/MapColonies/telemetry/commit/5391ca65c15f5f79d26013d1afec3440ae0ce546))
+* decorator return types ([#74](https://github.com/MapColonies/telemetry/issues/74)) ([8770968](https://github.com/MapColonies/telemetry/commit/877096895033904a9a27552104b7693705d5eb70))
+* **deps:** changed the api version to be fixed ([#22](https://github.com/MapColonies/telemetry/issues/22)) ([e09cbf5](https://github.com/MapColonies/telemetry/commit/e09cbf5d879f7611c7dd2a7d967b72fedfb5aecc))
+* **deps:** fixed localhost on package-lock.json ([5e68870](https://github.com/MapColonies/telemetry/commit/5e6887027ab26b443b49f9f124c6280c50629cdc))
+* **deps:** removed async hooks ([#19](https://github.com/MapColonies/telemetry/issues/19)) ([c6bd118](https://github.com/MapColonies/telemetry/commit/c6bd118f1cd85059c3dcef02d7c36aaca8d91a15))
+* enable providing spanOption arguments on span creation ([#61](https://github.com/MapColonies/telemetry/issues/61)) ([f47f4f4](https://github.com/MapColonies/telemetry/commit/f47f4f4c11d44360a8210867295a4b3f49ffba55))
+* examples basic-prom-bundle pushing traces ([0840ec2](https://github.com/MapColonies/telemetry/commit/0840ec254e87c0f43ba4db5a2e5b8b01c74f5663))
+* examples following v5.1.2 for gauge labels ([c331ea8](https://github.com/MapColonies/telemetry/commit/c331ea8ee7bf22417f88cb37a0c36b20a0ce760c))
+* examples were pointing to localhost registry ([0ebb390](https://github.com/MapColonies/telemetry/commit/0ebb390674ec3249e19d7c5421bd2c98ba401549))
+* moved manual to docs folder ([5b7a6fe](https://github.com/MapColonies/telemetry/commit/5b7a6fe8507e396e32058402d63459f7664fb395))
+* pr changes ([3109455](https://github.com/MapColonies/telemetry/commit/3109455fec9f6ec4815b60c7a7269fffc6bca464))
+* rename src folder in settings.json ([#66](https://github.com/MapColonies/telemetry/issues/66)) ([e6690ed](https://github.com/MapColonies/telemetry/commit/e6690eded50872977aa3d922c80fc92ace1aab6c))
+* **tracing:** fix serviceName ([bc2b395](https://github.com/MapColonies/telemetry/commit/bc2b39523740d9a6e8cae31ea75a6075f7939b87))
+* **tracing:** fix utils to handle undefined span ([#60](https://github.com/MapColonies/telemetry/issues/60)) ([7c3a69c](https://github.com/MapColonies/telemetry/commit/7c3a69c9127fd46086a3fbd5365dbd1e35f954e5))
+
+
+### Dependency Updates
+
+* bump ajv from 8.16.0 to 8.17.1 ([#111](https://github.com/MapColonies/telemetry/issues/111)) ([3f02cd9](https://github.com/MapColonies/telemetry/commit/3f02cd971058065e5c0a7a7f370a7c4c5309bfa6))
+
+
+### Code Refactoring
+
+* options change ([#69](https://github.com/MapColonies/telemetry/issues/69)) ([8599539](https://github.com/MapColonies/telemetry/commit/8599539a6e847fbcdf2ae9db18a22b231dc49595))
+* remove all package tests ([1fbc59c](https://github.com/MapColonies/telemetry/commit/1fbc59c9eb0a059d49d163aff4f70092a7c5a797))
+* upgraded to new otel version ([#46](https://github.com/MapColonies/telemetry/issues/46)) ([c85ad8f](https://github.com/MapColonies/telemetry/commit/c85ad8fe6e665f428365f4cbb4314772755d4367))
+
+
+### Build System
+
+* added engine setting to package.json ([#81](https://github.com/MapColonies/telemetry/issues/81)) ([0a17899](https://github.com/MapColonies/telemetry/commit/0a17899ed655314953fd6b09aa30853ac829bf12))
+* **deps:** update dependencies and Docker image versions for the example ([#57](https://github.com/MapColonies/telemetry/issues/57)) ([52f5874](https://github.com/MapColonies/telemetry/commit/52f58741a34386154f838a5a9876f4061e403a56))
+* **deps:** update OpenTelemetry dependencies ([#56](https://github.com/MapColonies/telemetry/issues/56)) ([3c373a5](https://github.com/MapColonies/telemetry/commit/3c373a5b2ae3e5d974dffaec88915221c65f97a8))
+* **deps:** upgrade packages for otel ([a83d11b](https://github.com/MapColonies/telemetry/commit/a83d11b9947cd4fdf73bf4a2487583ba34ba338b))
+* **deps:** upgrade to otel v1.0.1 ([676483b](https://github.com/MapColonies/telemetry/commit/676483bb685b3bea7afa211af9b88a29b455177b))
+* **deps:** upgraded opentelemetry version ([#14](https://github.com/MapColonies/telemetry/issues/14)) ([3b1616b](https://github.com/MapColonies/telemetry/commit/3b1616b37508b684ffb829a78ac01c15009d757e))
+* **deps:** upgraded otel version to latest ([#18](https://github.com/MapColonies/telemetry/issues/18)) ([ee2dca3](https://github.com/MapColonies/telemetry/commit/ee2dca3380bf5bcfcd9e677977f3b525c1e804dd))
+
+
+### Miscellaneous Chores
+
+* **deps:** upgraded to otel v1.14 ([#52](https://github.com/MapColonies/telemetry/issues/52)) ([0e186ff](https://github.com/MapColonies/telemetry/commit/0e186ffeebc09a287186543463d10c8b7ebf9a3d))
+
 ## [8.0.0](https://github.com/MapColonies/telemetry/compare/v7.0.1...v8.0.0) (2024-10-27)
 
 
