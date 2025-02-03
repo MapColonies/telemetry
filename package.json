@@ -94,7 +94,7 @@
     "pretty-quick": "^3.1.0",
     "standard-version": "^9.0.0",
     "ts-node": "^9.1.1",
-    "tsimp": "2.0.11",
+    "tsimp": "2.0.12",
     "typedoc": "^0.27.6",
     "typescript": "^5.3.3",
     "@map-colonies/tsconfig": "^1.0.0"
