@@ -29,8 +29,8 @@
     "build": "tsc --project tsconfig.build.json",
     "start": "npm run build && cd dist && node ./index.js",
     "clean": "rimraf dist",
-    "validate:attributes": "node --import=tsimp/import scripts/validate-semantic-conventions.mts",
-    "generate:attributes": "node --import=tsimp/import scripts/build-semantic-conventions.mts",
+    "validate:attributes": "tsx scripts/validate-semantic-conventions.mts",
+    "generate:attributes": "tsx scripts/build-semantic-conventions.mts",
     "generate:types": "json2ts schemas/attribute.schema.json > scripts/autogen.mts",
     "prepack": "npm run build",
     "prepare": "husky",
@@ -94,7 +94,7 @@
     "pretty-quick": "^3.1.0",
     "standard-version": "^9.0.0",
     "ts-node": "^9.1.1",
-    "tsimp": "2.0.11",
+    "tsx": "^4.19.3",
     "typedoc": "^0.27.6",
     "typescript": "^5.7.3"
   }
