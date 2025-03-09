@@ -51,11 +51,11 @@ export class Metrics implements TelemetryBase<void> {
     const { serviceVersion, sendInterval, url, serviceName, hostname } = this.config;
 
     const exporter = new OTLPMetricExporter({ url });
-    let readers = [new PeriodicExportingMetricReader({ exporter, exportIntervalMillis: sendInterval })];
+    const readers = [new PeriodicExportingMetricReader({ exporter, exportIntervalMillis: sendInterval })];
 
     if (this.config.debug) {
       api.diag.setLogger(new api.DiagConsoleLogger(), api.DiagLogLevel.ALL);
-      readers = [new PeriodicExportingMetricReader({ exporter: new ConsoleMetricExporter(), exportIntervalMillis: sendInterval })];
+      readers.push(new PeriodicExportingMetricReader({ exporter: new ConsoleMetricExporter(), exportIntervalMillis: sendInterval }));
     }
 
     this.provider = new MeterProvider({
