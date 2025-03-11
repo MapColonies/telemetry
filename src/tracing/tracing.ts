@@ -88,8 +88,6 @@ export class Tracing implements TelemetryBase<void> {
       }),
     });
 
-    // this.provider.addSpanProcessor();
-
     this.provider.register();
 
     registerInstrumentations({
