@@ -2,7 +2,7 @@ import * as api from '@opentelemetry/api';
 import { pino } from 'pino';
 
 // ignored because its the same type needed for LogFn
-// eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type LogFnArgs = [obj: object, msg?: string, ...args: any[]] | [msg: string, ...args: any[]];
 
 /**

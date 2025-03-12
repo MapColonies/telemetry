@@ -1,5 +1,5 @@
 import { hostname } from 'os';
-import Ajv, { type JSONSchemaType } from 'ajv';
+import ajv, { type JSONSchemaType } from 'ajv';
 import addFormats from 'ajv-formats';
 import { betterAjvErrors } from '@apideck/better-ajv-errors';
 import { loadPackageInfo } from '../common/packageInfoLoader';
@@ -24,8 +24,8 @@ interface CommonConfig {
   serviceVersion: string;
 }
 
-const ajv = addFormats(
-  new Ajv({
+const ajvInstance = addFormats(
+  new ajv({
     useDefaults: true,
     coerceTypes: true,
     allErrors: true,
@@ -49,14 +49,13 @@ function mergeAndValidateConfig<T extends Record<keyof T, string | boolean | und
 
   const mergedConfig = { ...inputConfig, ...envConfig };
 
-  const isValid = ajv.validate(schema, mergedConfig);
+  const isValid = ajvInstance.validate(schema, mergedConfig);
 
   if (!isValid) {
     const betterErrors = betterAjvErrors({
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       schema: schema as Parameters<typeof betterAjvErrors>[0]['schema'],
       data: mergedConfig,
-      errors: ajv.errors,
+      errors: ajvInstance.errors,
     });
     throw new Error(JSON.stringify(betterErrors, null, JSON_INDENTATION));
   }

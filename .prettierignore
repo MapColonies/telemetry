@@ -11,3 +11,6 @@ tsconfig.json
 coverage
 reports
 .release-please-manifest.json
+docs
+.tsimp
+**/semanticConventions/*.ts

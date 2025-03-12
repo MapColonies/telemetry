@@ -1,7 +1,7 @@
 import fsPromise from 'node:fs/promises';
 import { readdirSync, existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
-import Ajv from 'ajv';
+import ajv from 'ajv';
 import { parse as jsoncParse } from 'comment-json';
 import type { ConventionSchema } from './autogen.mjs';
 
@@ -14,9 +14,9 @@ if (!existsSync(SCHEMA_DIR)) {
 
 // Load and prepare scheme validator
 const schema = readFileSync(SCHEMA_DIR, { encoding: 'utf-8' });
-const ajv = new Ajv.default({ allErrors: true });
+const ajvInstance = new ajv.default({ allErrors: true });
 const schemaJson = JSON.parse(schema) as object;
-const validate = ajv.compile(schemaJson);
+const validate = ajvInstance.compile(schemaJson);
 
 // read and filter all relevant static db json files per domain
 const dbFiles = readdirSync(SEMANTIC_ATTRIBUTES_DIR).filter((file) => path.extname(file) === '.json');
