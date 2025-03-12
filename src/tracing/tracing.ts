@@ -2,10 +2,10 @@ import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
 import { ParentBasedSampler, TraceIdRatioBasedSampler } from '@opentelemetry/sdk-trace-base';
 import { getNodeAutoInstrumentations, InstrumentationConfigMap } from '@opentelemetry/auto-instrumentations-node';
-import { BatchSpanProcessor, ConsoleSpanExporter, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
-import { InstrumentationOption, registerInstrumentations } from '@opentelemetry/instrumentation';
+import { BatchSpanProcessor, ConsoleSpanExporter, SimpleSpanProcessor, type SpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { registerInstrumentations, Instrumentation } from '@opentelemetry/instrumentation';
 import { Resource } from '@opentelemetry/resources';
-import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
+import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';
 import * as api from '@opentelemetry/api';
 import { Prettify } from '../common/types';
 import { TelemetryBase } from '../common/interfaces';
@@ -19,7 +19,7 @@ export interface TracingOptions extends Partial<TracingConfig> {
   /**
    * Optional array of instrumentations.
    */
-  instrumentations?: InstrumentationOption[];
+  instrumentations?: Instrumentation[];
   /**
    * Optional map of auto-instrumentation configurations.
    */
@@ -41,7 +41,7 @@ export interface TracingOptions extends Partial<TracingConfig> {
 export class Tracing implements TelemetryBase<void> {
   private provider?: NodeTracerProvider;
   private readonly config: TracingConfig;
-  private readonly instrumentations?: InstrumentationOption[];
+  private readonly instrumentations?: Instrumentation[];
   private readonly autoInstrumentationsConfigMap?: InstrumentationConfigMap;
   private readonly attributes?: api.Attributes;
 
@@ -65,36 +65,37 @@ export class Tracing implements TelemetryBase<void> {
       return;
     }
     const { serviceVersion, serviceName, traceRatio, ...exporterConfig } = this.config;
+
+    const exporter = new OTLPTraceExporter(exporterConfig);
+    let processors: SpanProcessor[] = [new BatchSpanProcessor(exporter)];
+
+    if (this.config.debug) {
+      api.diag.setLogger(new api.DiagConsoleLogger(), api.DiagLogLevel.ALL);
+      processors = [new SimpleSpanProcessor(new ConsoleSpanExporter())];
+    }
+
     this.provider = new NodeTracerProvider({
+      spanProcessors: processors,
       sampler: new ParentBasedSampler({
         root: new TraceIdRatioBasedSampler(traceRatio),
       }),
       resource: new Resource({
         ...{
-          [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
-          [SemanticResourceAttributes.SERVICE_VERSION]: serviceVersion,
+          [ATTR_SERVICE_NAME]: serviceName,
+          [ATTR_SERVICE_VERSION]: serviceVersion,
         },
         ...this.attributes,
       }),
     });
 
-    const exporter = new OTLPTraceExporter(exporterConfig);
-
-    this.provider.addSpanProcessor(new BatchSpanProcessor(exporter));
-
-    if (this.config.debug) {
-      api.diag.setLogger(new api.DiagConsoleLogger(), api.DiagLogLevel.ALL);
-      this.provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
-    }
-
     this.provider.register();
 
     registerInstrumentations({
       instrumentations: [
-        ...(getNodeAutoInstrumentations({
+        ...getNodeAutoInstrumentations({
           ...this.autoInstrumentationsConfigMap,
           ['@opentelemetry/instrumentation-pino']: { enabled: false },
-        }) as InstrumentationOption[]),
+        }),
         ...(this.instrumentations ?? []),
       ],
     });
