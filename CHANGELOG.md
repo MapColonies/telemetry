@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.0.0](https://github.com/MapColonies/telemetry/compare/v9.0.0...v10.0.0) (2025-03-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* upgraded opentelemetry to new version ([#119](https://github.com/MapColonies/telemetry/issues/119))
+
+### Features
+
+* upgraded opentelemetry to new version ([#119](https://github.com/MapColonies/telemetry/issues/119)) ([93d8904](https://github.com/MapColonies/telemetry/commit/93d8904ba799641eb906d55b70431127ba619d09))
+
 ## [9.0.0](https://github.com/MapColonies/telemetry/compare/v8.0.0...v9.0.0) (2025-02-03)
 
 

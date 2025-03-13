@@ -1,6 +1,6 @@
 {
   "name": "@map-colonies/telemetry",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "Package for everything telemetry related in MapColonies",
   "main": "./dist/index.js",
   "exports": {
