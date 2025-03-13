@@ -1,5 +1,5 @@
 import { IncomingMessage, RequestOptions } from 'http';
-import api, { Span, SpanOptions, SpanStatusCode, Tracer } from '@opentelemetry/api';
+import { Span, SpanOptions, SpanStatusCode, Tracer, trace, context } from '@opentelemetry/api';
 
 /**
  * Binds a parent span to a function, ensuring that the function executes within the context of the span.
@@ -11,8 +11,8 @@ import api, { Span, SpanOptions, SpanStatusCode, Tracer } from '@opentelemetry/a
  * @group Tracing Utilities
  */
 export const contexBindingHelper = <T>(parentSpan: Span, func: T): T => {
-  const ctx = api.trace.setSpan(api.context.active(), parentSpan);
-  return api.context.bind(ctx, func);
+  const ctx = trace.setSpan(context.active(), parentSpan);
+  return context.bind(ctx, func);
 };
 
 /**
@@ -63,7 +63,7 @@ export const asyncCallWithSpan = async <T>(
         })
         .catch((error) => {
           handleSpanOnError(span, error);
-          return reject(error);
+          return reject(error as Error);
         });
     });
   });
