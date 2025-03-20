@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.0.1](https://github.com/MapColonies/telemetry/compare/v10.0.0...v10.0.1) (2025-03-20)
+
+
+### Bug Fixes
+
+* **tracing:** now when debug is enabled the otlp exporter still works ([#126](https://github.com/MapColonies/telemetry/issues/126)) ([3364927](https://github.com/MapColonies/telemetry/commit/33649276bf9fbdb81646fddc547279517851aa66))
+
+
+### Dependency Updates
+
+* bump @opentelemetry/auto-instrumentations-node ([#123](https://github.com/MapColonies/telemetry/issues/123)) ([650429c](https://github.com/MapColonies/telemetry/commit/650429c697704141e71814b31d6367a7ce962ea7))
+
 ## [10.0.0](https://github.com/MapColonies/telemetry/compare/v9.0.0...v10.0.0) (2025-03-13)
 
 
