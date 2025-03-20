@@ -67,11 +67,11 @@ export class Tracing implements TelemetryBase<void> {
     const { serviceVersion, serviceName, traceRatio, ...exporterConfig } = this.config;
 
     const exporter = new OTLPTraceExporter(exporterConfig);
-    let processors: SpanProcessor[] = [new BatchSpanProcessor(exporter)];
+    const processors: SpanProcessor[] = [new BatchSpanProcessor(exporter)];
 
     if (this.config.debug) {
       api.diag.setLogger(new api.DiagConsoleLogger(), api.DiagLogLevel.ALL);
-      processors = [new SimpleSpanProcessor(new ConsoleSpanExporter())];
+      processors.push(new SimpleSpanProcessor(new ConsoleSpanExporter()));
     }
 
     this.provider = new NodeTracerProvider({
