@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.1.0](https://github.com/MapColonies/telemetry/compare/v10.0.1...v10.1.0) (2025-08-20)
+
+
+### Features
+
+* add jobnik attributes for job management services ([#135](https://github.com/MapColonies/telemetry/issues/135)) ([c90d27e](https://github.com/MapColonies/telemetry/commit/c90d27e434a800db9ddea582138e9a4370982b9b))
+
 ## [10.0.1](https://github.com/MapColonies/telemetry/compare/v10.0.0...v10.0.1) (2025-03-20)
 
 
