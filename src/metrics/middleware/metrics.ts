@@ -186,7 +186,7 @@ export function collectMetricsExpressMiddleware(options: Partial<Opts>): promBun
   const promBundleConfig: promBundle.Opts = {
     promRegistry: mergedOptions.registry,
     autoregister: true,
-    includeUp: true,
+    includeUp: false,
     customLabels: mergedOptions.customLabels,
     includeMethod: true,
     includeStatusCode: true,
